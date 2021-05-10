@@ -32,9 +32,7 @@ import java.util.concurrent.Executors;
 
 public class CustomersFragment extends Fragment {
 
-    private Customer customer;
     RequestQueue requestQueue;
-
     ListView lvCustomers;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -43,7 +41,6 @@ public class CustomersFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_customers, container, false);
         lvCustomers = root.findViewById(R.id.lvCustomers);
 
-//        requestQueue = Volley.newRequestQueue(this);
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         Executors.newSingleThreadExecutor().execute(new GetCustomers());
@@ -62,30 +59,13 @@ public class CustomersFragment extends Fragment {
     private class GetCustomers implements Runnable {
         @Override
         public void run() {
-            String url = "http://10.0.2.2:8081/workshop7_war_exploded/customers/getallcustomers";
+            String url = "http://10.0.0.165:8080/workshop7_war_exploded/customers/getallcustomers";
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     ArrayAdapter<Customer> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1);
                     try {
                         JSONArray jsonArray = new JSONArray(response);
-//                        for (int i=0; 1 < jsonArray.length(); i++){
-//                            JSONObject cust = jsonArray.getJSONObject(i);
-//
-//                            Customer c = new Customer( cust.getInt("CustomerId"),
-//                                    cust.getString("CustFirstName"),
-//                                    cust.getString("CustLastName"),
-//                                    cust.getString("CustAddress"),
-//                                    cust.getString("CustCity"),
-//                                    cust.getString("CustProv"),
-//                                    cust.getString("CustPostal"),
-//                                    cust.getString("CustCountry"),
-//                                    cust.getString("CustHomePhone"),
-//                                    cust.getString("CustBusPhone"),
-//                                    cust.getString("CustEmail"),
-//                                    cust.getInt("AgentId"));
-//                            adapter.add(c);
-//                        }
                         for (int i = 0; i < jsonArray.length(); i++){
                             Customer c = new Gson().fromJson(jsonArray.getString(i), Customer.class);
                             adapter.add(c);

@@ -1,8 +1,11 @@
 package com.example.workshop8.ui.customers;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
@@ -133,5 +136,12 @@ public class Customer extends ViewModel implements Serializable {
 
     public void setAgentId(Integer agentId) {
         AgentId = agentId;
+    }
+
+    @NonNull
+    @NotNull
+    @Override
+    public String toString() {
+        return CustLastName + ", " + CustFirstName;
     }
 }
