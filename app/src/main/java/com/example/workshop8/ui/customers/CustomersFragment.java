@@ -35,15 +35,16 @@ public class CustomersFragment extends Fragment {
     private Customer customer;
     RequestQueue requestQueue;
 
+    ListView lvCustomers;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        customer =
-                new ViewModelProvider(this).get(Customer.class);
+//        customer = new ViewModelProvider(this).get(Customer.class);
         View root = inflater.inflate(R.layout.fragment_customers, container, false);
-        final ListView lvCustomers = root.findViewById(R.id.lvCustomers);
+        lvCustomers = root.findViewById(R.id.lvCustomers);
 
-        requestQueue = Volley.newRequestQueue(this);
+//        requestQueue = Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         Executors.newSingleThreadExecutor().execute(new GetCustomers());
 
@@ -61,13 +62,13 @@ public class CustomersFragment extends Fragment {
     private class GetCustomers implements Runnable {
         @Override
         public void run() {
-            String url = "http://localhost:8080/workshop7_war_exploded/customers/getallcustomers";
+            String url = "http://10.0.2.2:8081/workshop7_war_exploded/customers/getallcustomers";
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    ArrayAdapter<Customer> adapter = new ArrayAdapter<>(getApplicationContext(). android.R.layout.simple_list_item_1);
+                    ArrayAdapter<Customer> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1);
                     try {
-                        JSONArray jsonArray  = new JSONArray(response);
+                        JSONArray jsonArray = new JSONArray(response);
 //                        for (int i=0; 1 < jsonArray.length(); i++){
 //                            JSONObject cust = jsonArray.getJSONObject(i);
 //
@@ -85,10 +86,12 @@ public class CustomersFragment extends Fragment {
 //                                    cust.getInt("AgentId"));
 //                            adapter.add(c);
 //                        }
-                        for (int i=0; 1 < jsonArray.length(); i++){
+                        for (int i = 0; i < jsonArray.length(); i++){
                             Customer c = new Gson().fromJson(jsonArray.getString(i), Customer.class);
                             adapter.add(c);
                         }
+                        lvCustomers.setAdapter(adapter);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
