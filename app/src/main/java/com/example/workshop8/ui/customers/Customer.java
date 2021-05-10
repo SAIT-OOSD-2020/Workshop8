@@ -134,4 +134,9 @@ public class Customer extends ViewModel implements Serializable {
     public void setAgentId(Integer agentId) {
         AgentId = agentId;
     }
+
+    @Override
+    public String toString() {
+        return CustomerId + "\t " + CustFirstName + " " + CustLastName;
+    }
 }
