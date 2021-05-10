@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.workshop8.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_packages"
+        android:name="com.example.workshop8.ui.packages.PackagesFragment"
+        android:label="@string/menu_packages"
+        tools:layout="@layout/fragment_packages" />
+
+    <fragment
+        android:id="@+id/nav_suppliers"
+        android:name="com.example.workshop8.ui.suppliers.SuppliersFragment"
+        android:label="@string/menu_suppliers"
+        tools:layout="@layout/fragment_suppliers" />
+
+    <fragment
+        android:id="@+id/nav_products"
+        android:name="com.example.workshop8.ui.products.ProductsFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/nav_customers"
+        android:name="com.example.workshop8.ui.customers.CustomersFragment"
+        android:label="@string/menu_customers"
+        tools:layout="@layout/fragment_customers" />
+</navigation>
