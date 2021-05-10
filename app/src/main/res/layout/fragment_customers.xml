@@ -6,17 +6,183 @@
     android:layout_height="match_parent"
     tools:context=".ui.customers.CustomersFragment">
 
-    <TextView
-        android:id="@+id/text_customers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ListView
+        android:id="@+id/lvCustomers"
+        android:layout_width="411dp"
+        android:layout_height="359dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/tvCustFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="First Name"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustLastName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvCustomers" />
+
+    <TextView
+        android:id="@+id/tvCustHomePhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home Phone"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustPostal"
+        app:layout_constraintStart_toStartOf="@+id/tvCustPostal"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustPostal" />
+
+    <TextView
+        android:id="@+id/tvCustAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustCity"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustLastName"
+        app:layout_constraintStart_toStartOf="@+id/tvCustLastName"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustLastName" />
+
+    <TextView
+        android:id="@+id/tvCustCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustProv"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustAddress"
+        app:layout_constraintStart_toStartOf="@+id/tvCustAddress"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustAddress" />
+
+    <TextView
+        android:id="@+id/tvCustProv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Province"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustPostal"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustCity"
+        app:layout_constraintStart_toStartOf="@+id/tvCustCity"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustCity" />
+
+    <TextView
+        android:id="@+id/tvCustPostal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Postal Code"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustHomePhone"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustProv"
+        app:layout_constraintStart_toStartOf="@+id/tvCustProv"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustProv" />
+
+    <TextView
+        android:id="@+id/tvCustLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Name"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustAddress"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustFirstName"
+        app:layout_constraintStart_toStartOf="@+id/tvCustFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustFirstName" />
+
+    <EditText
+        android:id="@+id/etCustFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="359dp" />
+
+    <EditText
+        android:id="@+id/etCustCity"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="509dp" />
+
+    <EditText
+        android:id="@+id/etCustProv"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="559dp" />
+
+    <EditText
+        android:id="@+id/etCustPostal"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="609dp" />
+
+    <EditText
+        android:id="@+id/etCustAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="459dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName7"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="689dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName8"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="689dp" />
+
+    <EditText
+        android:id="@+id/etCustLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="409dp" />
+
+    <EditText
+        android:id="@+id/etCustCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="659dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="30"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="639dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
