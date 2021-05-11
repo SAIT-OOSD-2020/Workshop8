@@ -26,7 +26,6 @@
             android:layout_weight="1"
             android:background="@drawable/border"></ListView>
 
-        <View style="@style/Divider"/>
 
         <ScrollView
             android:layout_width="match_parent"
