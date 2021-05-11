@@ -4,41 +4,358 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".ui.customers.CustomersFragment">
 
-    <ListView
-        android:id="@+id/lvCustomers"
-        android:layout_width="412dp"
-        android:layout_height="181dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-    </ListView>
+        <ListView
+            android:id="@+id/lvCustomers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"></ListView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvCustomerId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Customer ID"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvCustFirstName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="First Name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCustomerId" />
+
+                    <TextView
+                        android:id="@+id/tvCustLastName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Last Name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCustFirstName" />
+
+                    <TextView
+                        android:id="@+id/tvCustAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Address"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCustLastName" />
+
+                    <TextView
+                        android:id="@+id/tvCustCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="City"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCustAddress" />
+
+                    <TextView
+                        android:id="@+id/tvCustProv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Province"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCustCity" />
+
+                    <TextView
+                        android:id="@+id/tvCustPostal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Postal Code"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCustProv" />
+
+                    <TextView
+                        android:id="@+id/tvCustCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Country"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCustPostal" />
+
+                    <TextView
+                        android:id="@+id/tvCustHomePhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Home Phone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCustCountry" />
+
+                    <TextView
+                        android:id="@+id/tvCustBusPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Bussiness Phone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCustHomePhone" />
+
+                    <TextView
+                        android:id="@+id/tvCustEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Email"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCustBusPhone" />
+
+                    <TextView
+                        android:id="@+id/tvAgentId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Agent ID"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCustEmail" />
+
+                    <EditText
+                        android:id="@+id/etCustomerId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustomerId"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvCustomerId" />
+
+                    <EditText
+                        android:id="@+id/etCustFirstName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustFirstName"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvCustFirstName" />
+
+                    <EditText
+                        android:id="@+id/etCustLastName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustLastName"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvCustLastName" />
+
+                    <EditText
+                        android:id="@+id/etCustAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustAddress"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvCustAddress" />
+
+                    <EditText
+                        android:id="@+id/etCustCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustCity"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvCustCity" />
+
+                    <EditText
+                        android:id="@+id/etCustProv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="AB"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustProv"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvCustProv" />
+
+                    <EditText
+                        android:id="@+id/etCustPostal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustPostal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvCustPostal" />
+
+                    <EditText
+                        android:id="@+id/etCustCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustCountry"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvCustCountry" />
+
+                    <EditText
+                        android:id="@+id/etCustHomePhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustHomePhone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvCustHomePhone" />
+
+                    <EditText
+                        android:id="@+id/etCustBusPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustBusPhone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvCustBusPhone" />
+
+                    <EditText
+                        android:id="@+id/etCustEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCustEmail"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvCustEmail" />
+
+                    <EditText
+                        android:id="@+id/etAgentId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:text="4"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvAgentId"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvAgentId" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAdd_packages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@+id/btnSave_packages"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnSave_packages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:src="@drawable/ic_save"
         app:layout_constraintBottom_toTopOf="@+id/btnDelete_packages"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnDelete_packages"
         android:layout_width="wrap_content"
@@ -49,273 +366,5 @@
         android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="384dp"
-        android:layout_height="535dp"
-        android:layout_marginTop="4dp"
-        android:isScrollContainer="true"
-        android:scrollbars="horizontal|vertical"
-        android:verticalScrollbarPosition="right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvCustomers"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Customer ID" />
-
-            <EditText
-                android:id="@+id/etCustomerId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:textSize="16sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustFirstName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="First Name" />
-
-            <EditText
-                android:id="@+id/etCustFirstName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustLastName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Last Name" />
-
-            <EditText
-                android:id="@+id/etCustLastName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address" />
-
-            <EditText
-                android:id="@+id/etCustAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="City" />
-
-            <EditText
-                android:id="@+id/etCustCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustProv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Province" />
-
-            <EditText
-                android:id="@+id/etCustProv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="AB"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustPostal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Postal Code" />
-
-            <EditText
-                android:id="@+id/etCustPostal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Country" />
-
-            <EditText
-                android:id="@+id/etCustCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustHomePhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home Phone" />
-
-            <EditText
-                android:id="@+id/etCustHomePhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustBusPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bussiness Phone" />
-
-            <EditText
-                android:id="@+id/etCustBusPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvCustEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email" />
-
-            <EditText
-                android:id="@+id/etCustEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="Name"
-                android:textSize="16sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvAgentId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Agent ID" />
-
-            <EditText
-                android:id="@+id/etAgentId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="textPersonName"
-                android:text="4"
-                android:textSize="16sp" />
-        </TableRow>
-
-    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -140,6 +140,6 @@ public class Customer extends ViewModel implements Serializable {
 
     @Override
     public String toString() {
-        return CustomerId + "\t " + CustFirstName + " " + CustLastName;
+        return CustomerId + ":\t " + CustFirstName + " " + CustLastName;
     }
 }

@@ -20,7 +20,61 @@ public class Package extends ViewModel {
     private double PkgBasePrice;
     private double PkgAgencyCommission;
 
+    public int getPackageId() {
+        return PackageId;
+    }
 
+    public void setPackageId(int packageId) {
+        PackageId = packageId;
+    }
+
+    public String getPkgName() {
+        return PkgName;
+    }
+
+    public void setPkgName(String pkgName) {
+        PkgName = pkgName;
+    }
+
+    public Date getPkgStartDate() {
+        return PkgStartDate;
+    }
+
+    public void setPkgStartDate(Date pkgStartDate) {
+        PkgStartDate = pkgStartDate;
+    }
+
+    public Date getPkgEndDate() {
+        return PkgEndDate;
+    }
+
+    public void setPkgEndDate(Date pkgEndDate) {
+        PkgEndDate = pkgEndDate;
+    }
+
+    public String getPkgDesc() {
+        return PkgDesc;
+    }
+
+    public void setPkgDesc(String pkgDesc) {
+        PkgDesc = pkgDesc;
+    }
+
+    public double getPkgBasePrice() {
+        return PkgBasePrice;
+    }
+
+    public void setPkgBasePrice(double pkgBasePrice) {
+        PkgBasePrice = pkgBasePrice;
+    }
+
+    public double getPkgAgencyCommission() {
+        return PkgAgencyCommission;
+    }
+
+    public void setPkgAgencyCommission(double pkgAgencyCommission) {
+        PkgAgencyCommission = pkgAgencyCommission;
+    }
 
     @NonNull
     @NotNull
