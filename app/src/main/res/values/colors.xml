@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="brand_plum">#FF5B3547</color>
+    <color name="brand_grey">#FF4A4752</color>
+
 </resources>

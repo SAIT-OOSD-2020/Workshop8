@@ -29,10 +29,9 @@
 
     <ListView
         android:id="@+id/lvCustomers"
-        android:layout_width="411dp"
-        android:layout_height="93dp"
+        android:layout_width="0dp"
+        android:layout_height="360dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -64,6 +63,89 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvCustAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustCity"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustLastName"
+        app:layout_constraintStart_toStartOf="@+id/tvCustLastName"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustLastName" />
+
+    <TextView
+        android:id="@+id/tvCustCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustProv"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustAddress"
+        app:layout_constraintStart_toStartOf="@+id/tvCustAddress"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustAddress" />
+
+    <TextView
+        android:id="@+id/tvCustProv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Province"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustPostal"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustCity"
+        app:layout_constraintStart_toStartOf="@+id/tvCustCity"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustCity" />
+
+    <TextView
+        android:id="@+id/tvCustPostal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Postal Code"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustHomePhone"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustProv"
+        app:layout_constraintStart_toStartOf="@+id/tvCustProv"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustProv" />
+
+    <TextView
+        android:id="@+id/tvCustLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Name"
+        app:layout_constraintBottom_toTopOf="@+id/tvCustAddress"
+        app:layout_constraintEnd_toEndOf="@+id/tvCustFirstName"
+        app:layout_constraintStart_toStartOf="@+id/tvCustFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustFirstName" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAdd_customers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toTopOf="@+id/btnSave_customers"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSave_customers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_save"
+        app:layout_constraintBottom_toTopOf="@+id/btnDelete_customers"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnDelete_customers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"

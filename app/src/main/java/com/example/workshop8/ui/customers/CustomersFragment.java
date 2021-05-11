@@ -39,11 +39,11 @@ import java.util.concurrent.Executors;
 
 public class CustomersFragment extends Fragment {
 
+
     private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
 
     private Customer customer;
     RequestQueue requestQueue;
-
     ListView lvCustomers;
     Button btnEditCust;
     Button btnSaveCust;
@@ -76,6 +76,7 @@ public class CustomersFragment extends Fragment {
         lvCustomers = root.findViewById(R.id.lvCustomers);
         btnEditCust = root.findViewById(R.id.btnEditCust);
         btnSaveCust = root.findViewById(R.id.btnSaveCust);
+
 
         etCustomerId = root.findViewById(R.id.etCustomerId);
         etCustFirstName = root.findViewById(R.id.etCustFirstName);
@@ -157,7 +158,9 @@ public class CustomersFragment extends Fragment {
     private class GetCustomers implements Runnable {
         @Override
         public void run() {
+
             String url = urlStart + "getallcustomers";
+          
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
