@@ -43,7 +43,7 @@ public class CustomersFragment extends Fragment {
     ListView lvCustomers;
     FloatingActionButton btnAdd_packages;
     FloatingActionButton btnSave_packages;
-    FloatingActionButton btnDeleteCust;
+    FloatingActionButton btnDelete_packages;
 
     EditText etCustomerId;
     EditText etCustFirstName;
@@ -72,6 +72,7 @@ public class CustomersFragment extends Fragment {
         lvCustomers = root.findViewById(R.id.lvCustomers);
         btnSave_packages = root.findViewById(R.id.btnSave_packages);
         btnAdd_packages = root.findViewById(R.id.btnAdd_packages);
+        btnDelete_packages = root.findViewById(R.id.btnDelete_packages);
 
 
         etCustomerId = root.findViewById(R.id.etCustomerId);
@@ -153,6 +154,36 @@ public class CustomersFragment extends Fragment {
                 etCustBusPhone.setEnabled(true);
                 etCustEmail.setEnabled(true);
                 etAgentId.setEnabled(true);
+            }
+        });
+
+        btnDelete_packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etCustomerId.getText().toString().isEmpty()){
+
+                } else{
+                    // means one customer is clicked.
+                    int custId = Integer.parseInt(etCustomerId.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new DeleteCustomer(custId));
+                }
+
+                etCustFirstName.setEnabled(false);
+                etCustLastName.setEnabled(false);
+                etCustAddress.setEnabled(false);
+
+                etCustCity.setEnabled(false);
+                etCustProv.setEnabled(false);
+                etCustPostal.setEnabled(false);
+                etCustCountry.setEnabled(false);
+
+                etCustHomePhone.setEnabled(false);
+                etCustBusPhone.setEnabled(false);
+                etCustEmail.setEnabled(false);
+                etAgentId.setEnabled(false);
+
+                // TODO: Refresh the listview. ↓ This does not work.
+                Executors.newSingleThreadExecutor().execute(new GetCustomers());
             }
         });
 
@@ -321,6 +352,45 @@ public class CustomersFragment extends Fragment {
 
             requestQueue.add(putRequest);
 
+        }
+    }
+
+    private class DeleteCustomer implements Runnable {
+        private int custId;
+        public DeleteCustomer(int custId) {
+            this.custId = custId;
+        }
+
+        @Override
+        public void run() {
+            String url = urlStart + "deletecustomer/" + custId;
+            StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
+                    new Response.Listener<String>()
+                    {
+                        @Override
+                        public void onResponse(String response) {
+                            VolleyLog.d("!!!Response" + response);
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            VolleyLog.d("!!!Error.Response" + error);
+                        }
+                    }
+            ) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json; charset=utf-8");
+                    return headers;
+                }
+
+            };
+
+            requestQueue.add(stringRequest);
         }
     }
 }
