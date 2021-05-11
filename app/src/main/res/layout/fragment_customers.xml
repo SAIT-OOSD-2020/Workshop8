@@ -8,81 +8,16 @@
 
     <ListView
         android:id="@+id/lvCustomers"
-        android:layout_width="0dp"
-        android:layout_height="360dp"
+        android:layout_width="412dp"
+        android:layout_height="181dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </ListView>
-
-    <TextView
-        android:id="@+id/tvCustFirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="First Name"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustLastName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvCustomers" />
-
-    <TextView
-        android:id="@+id/tvCustHomePhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home Phone"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustPostal"
-        app:layout_constraintStart_toStartOf="@+id/tvCustPostal"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustPostal" />
-
-    <TextView
-        android:id="@+id/tvCustAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Address"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustCity"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustLastName"
-        app:layout_constraintStart_toStartOf="@+id/tvCustLastName"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustLastName" />
-
-    <TextView
-        android:id="@+id/tvCustCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="City"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustProv"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustAddress"
-        app:layout_constraintStart_toStartOf="@+id/tvCustAddress"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustAddress" />
-
-    <TextView
-        android:id="@+id/tvCustProv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Province"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustPostal"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustCity"
-        app:layout_constraintStart_toStartOf="@+id/tvCustCity"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustCity" />
-
-    <TextView
-        android:id="@+id/tvCustPostal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Postal Code"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustHomePhone"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustProv"
-        app:layout_constraintStart_toStartOf="@+id/tvCustProv"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustProv" />
-
-    <TextView
-        android:id="@+id/tvCustLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Last Name"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustAddress"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustFirstName"
-        app:layout_constraintStart_toStartOf="@+id/tvCustFirstName"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustFirstName" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAdd_packages"
@@ -93,9 +28,7 @@
         android:clickable="true"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@+id/btnSave_packages"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/fab_add" />
-
+        app:layout_constraintEnd_toEndOf="parent" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnSave_packages"
         android:layout_width="wrap_content"
@@ -105,9 +38,7 @@
         android:clickable="true"
         android:src="@drawable/ic_save"
         app:layout_constraintBottom_toTopOf="@+id/btnDelete_packages"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/fab_save" />
-
+        app:layout_constraintEnd_toEndOf="parent" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnDelete_packages"
         android:layout_width="wrap_content"
@@ -117,107 +48,274 @@
         android:clickable="true"
         android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="384dp"
+        android:layout_height="535dp"
+        android:layout_marginTop="4dp"
+        android:isScrollContainer="true"
+        android:scrollbars="horizontal|vertical"
+        android:verticalScrollbarPosition="right"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/fab_delete" />
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvCustomers"
+        app:layout_constraintVertical_bias="0.0">
 
-    <!--    <EditText-->
-<!--        android:id="@+id/etCustFirstName"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="359dp" />-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-<!--    <EditText-->
-<!--        android:id="@+id/etCustCity"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="509dp" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customer ID" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/etCustProv"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="559dp" />-->
+            <EditText
+                android:id="@+id/etCustomerId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:textSize="16sp" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/etCustPostal"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="609dp" />-->
+        </TableRow>
 
-<!--    <EditText-->
-<!--        android:id="@+id/etCustAddress"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="459dp" />-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-<!--    <EditText-->
-<!--        android:id="@+id/editTextTextPersonName7"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="689dp" />-->
+            <TextView
+                android:id="@+id/tvCustFirstName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/editTextTextPersonName8"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="689dp" />-->
+            <EditText
+                android:id="@+id/etCustFirstName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
 
-<!--    <EditText-->
-<!--        android:id="@+id/etCustLastName"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="409dp" />-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-<!--    <EditText-->
-<!--        android:id="@+id/etCustCountry"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="659dp" />-->
+            <TextView
+                android:id="@+id/tvCustLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/editTextTextPersonName"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        tools:layout_editor_absoluteX="162dp"-->
-<!--        tools:layout_editor_absoluteY="639dp" />-->
+            <EditText
+                android:id="@+id/etCustLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCustAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address" />
+
+            <EditText
+                android:id="@+id/etCustAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCustCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City" />
+
+            <EditText
+                android:id="@+id/etCustCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCustProv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Province" />
+
+            <EditText
+                android:id="@+id/etCustProv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="AB"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCustPostal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Postal Code" />
+
+            <EditText
+                android:id="@+id/etCustPostal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCustCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country" />
+
+            <EditText
+                android:id="@+id/etCustCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCustHomePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home Phone" />
+
+            <EditText
+                android:id="@+id/etCustHomePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCustBusPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bussiness Phone" />
+
+            <EditText
+                android:id="@+id/etCustBusPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCustEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email" />
+
+            <EditText
+                android:id="@+id/etCustEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvAgentId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agent ID" />
+
+            <EditText
+                android:id="@+id/etAgentId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:text="4"
+                android:textSize="16sp" />
+        </TableRow>
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
