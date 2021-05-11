@@ -138,10 +138,8 @@ public class Customer extends ViewModel implements Serializable {
         AgentId = agentId;
     }
 
-    @NonNull
-    @NotNull
     @Override
     public String toString() {
-        return CustLastName + ", " + CustFirstName;
+        return CustomerId + "\t " + CustFirstName + " " + CustLastName;
     }
 }
