@@ -41,7 +41,7 @@ public class CustomersFragment extends Fragment {
     private Customer customer;
     RequestQueue requestQueue;
     ListView lvCustomers;
-    FloatingActionButton btnAddCust;
+    FloatingActionButton btnAdd_packages;
     FloatingActionButton btnSave_packages;
     FloatingActionButton btnDeleteCust;
 
@@ -71,6 +71,7 @@ public class CustomersFragment extends Fragment {
 
         lvCustomers = root.findViewById(R.id.lvCustomers);
         btnSave_packages = root.findViewById(R.id.btnSave_packages);
+        btnAdd_packages = root.findViewById(R.id.btnAdd_packages);
 
 
         etCustomerId = root.findViewById(R.id.etCustomerId);
@@ -97,13 +98,24 @@ public class CustomersFragment extends Fragment {
         btnSave_packages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Customer c = new Customer(
-                        Integer.parseInt(etCustomerId.getText().toString()), etCustFirstName.getText().toString(),
-                        etCustLastName.getText().toString(), etCustAddress.getText().toString(), etCustCity.getText().toString(),
-                        etCustProv.getText().toString(), etCustPostal.getText().toString(), etCustCountry.getText().toString(),
-                        etCustHomePhone.getText().toString(), etCustBusPhone.getText().toString(), etCustEmail.getText().toString(),
-                        Integer.parseInt(etAgentId.getText().toString()));
-                Executors.newSingleThreadExecutor().execute(new PutCustomer(c));
+                if (etCustomerId.getText().toString().isEmpty()){
+                    Customer c = new Customer(0, etCustFirstName.getText().toString(),
+                            etCustLastName.getText().toString(), etCustAddress.getText().toString(), etCustCity.getText().toString(),
+                            etCustProv.getText().toString(), etCustPostal.getText().toString(), etCustCountry.getText().toString(),
+                            etCustHomePhone.getText().toString(), etCustBusPhone.getText().toString(), etCustEmail.getText().toString(),
+                            Integer.parseInt(etAgentId.getText().toString()));
+                    Executors.newSingleThreadExecutor().execute(new PostCustomer(c));
+
+                } else {
+                    Customer c = new Customer(
+                            Integer.parseInt(etCustomerId.getText().toString()), etCustFirstName.getText().toString(),
+                            etCustLastName.getText().toString(), etCustAddress.getText().toString(), etCustCity.getText().toString(),
+                            etCustProv.getText().toString(), etCustPostal.getText().toString(), etCustCountry.getText().toString(),
+                            etCustHomePhone.getText().toString(), etCustBusPhone.getText().toString(), etCustEmail.getText().toString(),
+                            Integer.parseInt(etAgentId.getText().toString()));
+                    Executors.newSingleThreadExecutor().execute(new PutCustomer(c));
+
+                }
 
                 etCustFirstName.setEnabled(false);
                 etCustLastName.setEnabled(false);
@@ -119,11 +131,29 @@ public class CustomersFragment extends Fragment {
                 etCustEmail.setEnabled(false);
                 etAgentId.setEnabled(false);
 
-                // Load customers data into listview.
+                // TODO: Refresh the listview. ↓ This does not work.
                 Executors.newSingleThreadExecutor().execute(new GetCustomers());
 
             }
+        });
 
+        btnAdd_packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etCustFirstName.setEnabled(true);
+                etCustLastName.setEnabled(true);
+                etCustAddress.setEnabled(true);
+
+                etCustCity.setEnabled(true);
+                etCustProv.setEnabled(true);
+                etCustPostal.setEnabled(true);
+                etCustCountry.setEnabled(true);
+
+                etCustHomePhone.setEnabled(true);
+                etCustBusPhone.setEnabled(true);
+                etCustEmail.setEnabled(true);
+                etAgentId.setEnabled(true);
+            }
         });
 
 
@@ -217,6 +247,53 @@ public class CustomersFragment extends Fragment {
         public void run() {
             String url = urlStart + "putcustomer";
             JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, customerJson,
+                    new Response.Listener<JSONObject>()
+                    {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            VolleyLog.d("!!!Response" + response);
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            VolleyLog.d("!!!Error.Response" + error);
+                        }
+                    }
+            ) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json; charset=utf-8");
+                    return headers;
+                }
+
+            };
+
+            requestQueue.add(putRequest);
+
+        }
+    }
+
+    private class PostCustomer implements Runnable {
+        JSONObject customerJson;
+
+        public PostCustomer(Customer customer) {
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(customer);
+            try {
+                customerJson = new JSONObject(jsonString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void run() {
+            String url = urlStart + "postcustomer";
+            JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.POST, url, customerJson,
                     new Response.Listener<JSONObject>()
                     {
                         @Override
