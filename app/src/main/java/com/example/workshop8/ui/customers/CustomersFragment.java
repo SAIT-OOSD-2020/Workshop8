@@ -6,16 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -45,8 +41,9 @@ public class CustomersFragment extends Fragment {
     private Customer customer;
     RequestQueue requestQueue;
     ListView lvCustomers;
-    Button btnEditCust;
-    Button btnSaveCust;
+    FloatingActionButton btnAddCust;
+    FloatingActionButton btnSave_packages;
+    FloatingActionButton btnDeleteCust;
 
     EditText etCustomerId;
     EditText etCustFirstName;
@@ -70,12 +67,10 @@ public class CustomersFragment extends Fragment {
 //        customer = new ViewModelProvider(this).get(Customer.class);
         View root = inflater.inflate(R.layout.fragment_customers, container, false);
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        requestQueue.start();
 
 
         lvCustomers = root.findViewById(R.id.lvCustomers);
-        btnEditCust = root.findViewById(R.id.btnEditCust);
-        btnSaveCust = root.findViewById(R.id.btnSaveCust);
+        btnSave_packages = root.findViewById(R.id.btnSave_packages);
 
 
         etCustomerId = root.findViewById(R.id.etCustomerId);
@@ -97,17 +92,9 @@ public class CustomersFragment extends Fragment {
 
         // Load customers data into listview.
         Executors.newSingleThreadExecutor().execute(new GetCustomers());
+        
 
-        btnEditCust.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                etCustFirstName.setEnabled(true);
-                etCustLastName.setEnabled(true);
-                btnSaveCust.setEnabled(true);
-            }
-        });
-
-        btnSaveCust.setOnClickListener(new View.OnClickListener() {
+        btnSave_packages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Customer c = new Customer(
@@ -118,9 +105,19 @@ public class CustomersFragment extends Fragment {
                         Integer.parseInt(etAgentId.getText().toString()));
                 Executors.newSingleThreadExecutor().execute(new PutCustomer(c));
 
-                btnSaveCust.setEnabled(false);
                 etCustFirstName.setEnabled(false);
                 etCustLastName.setEnabled(false);
+                etCustAddress.setEnabled(false);
+
+                etCustCity.setEnabled(false);
+                etCustProv.setEnabled(false);
+                etCustPostal.setEnabled(false);
+                etCustCountry.setEnabled(false);
+
+                etCustHomePhone.setEnabled(false);
+                etCustBusPhone.setEnabled(false);
+                etCustEmail.setEnabled(false);
+                etAgentId.setEnabled(false);
 
                 // Load customers data into listview.
                 Executors.newSingleThreadExecutor().execute(new GetCustomers());
@@ -149,6 +146,20 @@ public class CustomersFragment extends Fragment {
                 etCustEmail.setText(c.getCustEmail());
                 etAgentId.setText(c.getAgentId()+"");
 
+
+                etCustFirstName.setEnabled(true);
+                etCustLastName.setEnabled(true);
+                etCustAddress.setEnabled(true);
+
+                etCustCity.setEnabled(true);
+                etCustProv.setEnabled(true);
+                etCustPostal.setEnabled(true);
+                etCustCountry.setEnabled(true);
+
+                etCustHomePhone.setEnabled(true);
+                etCustBusPhone.setEnabled(true);
+                etCustEmail.setEnabled(true);
+                etAgentId.setEnabled(true);
             }
         });
 
