@@ -6,138 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".ui.customers.CustomersFragment">
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.311"
-        app:layout_constraintStart_toEndOf="@+id/btnSaveCust" />
-
-    <Button
-        android:id="@+id/btnSaveCust"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
-        app:layout_constraintStart_toEndOf="@+id/btnEditCust" />
-
     <ListView
         android:id="@+id/lvCustomers"
-        android:layout_width="0dp"
-        android:layout_height="360dp"
+        android:layout_width="412dp"
+        android:layout_height="181dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </ListView>
 
-    <Button
-        android:id="@+id/btnEditCust"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="391dp"
-        android:layout_height="577dp"
-        android:isScrollContainer="true"
-        android:scrollbars="horizontal|vertical"
-        android:verticalScrollbarPosition="right"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSaveCust"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvCustomers"
-        app:layout_constraintVertical_bias="0.638">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tvCustAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Address"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustCity"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustLastName"
-        app:layout_constraintStart_toStartOf="@+id/tvCustLastName"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustLastName" />
-
-    <TextView
-        android:id="@+id/tvCustCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="City"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustProv"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustAddress"
-        app:layout_constraintStart_toStartOf="@+id/tvCustAddress"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustAddress" />
-
-    <TextView
-        android:id="@+id/tvCustProv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Province"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustPostal"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustCity"
-        app:layout_constraintStart_toStartOf="@+id/tvCustCity"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustCity" />
-
-    <TextView
-        android:id="@+id/tvCustPostal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Postal Code"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustHomePhone"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustProv"
-        app:layout_constraintStart_toStartOf="@+id/tvCustProv"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustProv" />
-
-    <TextView
-        android:id="@+id/tvCustLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Last Name"
-        app:layout_constraintBottom_toTopOf="@+id/tvCustAddress"
-        app:layout_constraintEnd_toEndOf="@+id/tvCustFirstName"
-        app:layout_constraintStart_toStartOf="@+id/tvCustFirstName"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustFirstName" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAdd_customers"
+        android:id="@+id/btnAdd_packages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toTopOf="@+id/btnSave_customers"
+        app:layout_constraintBottom_toTopOf="@+id/btnSave_packages"
         app:layout_constraintEnd_toEndOf="parent" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnSave_customers"
+        android:id="@+id/btnSave_packages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@drawable/ic_save"
-        app:layout_constraintBottom_toTopOf="@+id/btnDelete_customers"
+        app:layout_constraintBottom_toTopOf="@+id/btnDelete_packages"
         app:layout_constraintEnd_toEndOf="parent" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnDelete_customers"
+        android:id="@+id/btnDelete_packages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -146,6 +49,25 @@
         android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="384dp"
+        android:layout_height="535dp"
+        android:layout_marginTop="4dp"
+        android:isScrollContainer="true"
+        android:scrollbars="horizontal|vertical"
+        android:verticalScrollbarPosition="right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvCustomers"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -305,6 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:textSize="16sp" />
@@ -325,6 +248,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:textSize="16sp" />
@@ -345,6 +269,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:textSize="16sp" />
@@ -365,6 +290,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:textSize="16sp" />
@@ -385,6 +311,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:textSize="16sp" />
