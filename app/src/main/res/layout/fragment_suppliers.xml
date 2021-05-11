@@ -17,29 +17,31 @@
     </ListView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAdd_suppliers"
+        android:id="@+id/btnAdd_packages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toTopOf="@+id/btnSave_suppliers"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/btnSave_packages"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/fab_add" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnSave_suppliers"
+        android:id="@+id/btnSave_packages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@drawable/ic_save"
-        app:layout_constraintBottom_toTopOf="@+id/btnDelete_suppliers"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/btnDelete_packages"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/fab_save" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnDelete_suppliers"
+        android:id="@+id/btnDelete_packages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -47,6 +49,7 @@
         android:clickable="true"
         android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/fab_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

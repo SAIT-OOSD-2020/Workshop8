@@ -20,8 +20,6 @@ public class Package extends ViewModel {
     private double PkgBasePrice;
     private double PkgAgencyCommission;
 
-
-
     @NonNull
     @NotNull
     @Override

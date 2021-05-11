@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
 import com.example.workshop8.ui.packages.Package;
 import com.example.workshop8.ui.packages.PackagesFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -36,12 +37,18 @@ public class PackagesFragment extends Fragment {
 
     RequestQueue requestQueue;
     ListView lvPackages;
+    FloatingActionButton btnAdd_packages, btnSave_packages, btnDelete_packages;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        customer = new ViewModelProvider(this).get(Customer.class);
         View root = inflater.inflate(R.layout.fragment_packages, container, false);
         lvPackages = root.findViewById(R.id.lvPackages);
+        btnAdd_packages = root.findViewById(R.id.btnAdd_packages);
+        btnSave_packages = root.findViewById(R.id.btnSave_packages);
+        btnDelete_packages = root.findViewById(R.id.btnDelete_packages);
+
+        
 
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 

@@ -16,7 +16,6 @@
 
     </ListView>
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAdd_packages"
         android:layout_width="wrap_content"
@@ -26,7 +25,8 @@
         android:clickable="true"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@+id/btnSave_packages"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/fab_add" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnSave_packages"
@@ -37,7 +37,8 @@
         android:clickable="true"
         android:src="@drawable/ic_save"
         app:layout_constraintBottom_toTopOf="@+id/btnDelete_packages"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/fab_save" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnDelete_packages"
@@ -48,19 +49,7 @@
         android:clickable="true"
         android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/text_packages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:contentDescription="@string/fab_delete" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
