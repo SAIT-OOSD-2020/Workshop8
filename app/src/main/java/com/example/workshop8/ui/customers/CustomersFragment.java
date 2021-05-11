@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -35,8 +36,8 @@ import java.util.concurrent.Executors;
 
 public class CustomersFragment extends Fragment {
 
-
-    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
+    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
+    //private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
 
     private Customer customer;
     RequestQueue requestQueue;
@@ -133,7 +134,8 @@ public class CustomersFragment extends Fragment {
                 etAgentId.setEnabled(false);
 
                 // TODO: Refresh the listview. ↓ This does not work.
-                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+                listCustomers();
 
             }
         });
@@ -183,7 +185,8 @@ public class CustomersFragment extends Fragment {
                 etAgentId.setEnabled(false);
 
                 // TODO: Refresh the listview. ↓ This does not work.
-                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+                listCustomers();
             }
         });
 
@@ -231,34 +234,38 @@ public class CustomersFragment extends Fragment {
         @Override
         public void run() {
 
-            String url = urlStart + "getallcustomers";
-          
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    ArrayAdapter<Customer> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1);
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        for (int i = 0; i < jsonArray.length(); i++){
-                            Customer c = new Gson().fromJson(jsonArray.getString(i), Customer.class);
-                            adapter.add(c);
-                        }
-                        lvCustomers.setAdapter(adapter);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(error.getMessage());
-                }
-            });
-
-            requestQueue.add(stringRequest);
+            listCustomers();
 
         }
+    }
+
+    private void listCustomers(){
+        String url = urlStart + "getallcustomers";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                ArrayAdapter<Customer> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1);
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        Customer c = new Gson().fromJson(jsonArray.getString(i), Customer.class);
+                        adapter.add(c);
+                    }
+                    lvCustomers.setAdapter(adapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(error.getMessage());
+            }
+        });
+
+        requestQueue.add(stringRequest);
     }
 
     private class PutCustomer implements Runnable {

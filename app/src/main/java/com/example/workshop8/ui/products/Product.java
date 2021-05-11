@@ -12,6 +12,22 @@ public class Product extends ViewModel {
     private int ProductId;
     private String ProdName;
 
+    public int getProductId() {
+        return ProductId;
+    }
+
+    public void setProductId(int productId) {
+        ProductId = productId;
+    }
+
+    public String getProdName() {
+        return ProdName;
+    }
+
+    public void setProdName(String prodName) {
+        ProdName = prodName;
+    }
+
     @NonNull
     @NotNull
     @Override
