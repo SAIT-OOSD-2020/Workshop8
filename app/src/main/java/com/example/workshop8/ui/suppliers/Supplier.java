@@ -12,6 +12,11 @@ public class Supplier extends ViewModel {
     private int SupplierId;
     private String SupName;
 
+    public Supplier(int supplierId, String supName) {
+        SupplierId = supplierId;
+        SupName = supName;
+    }
+
     public int getSupplierId() {
         return SupplierId;
     }

@@ -70,12 +70,10 @@ public class CustomersFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_customers, container, false);
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-
         lvCustomers = root.findViewById(R.id.lvCustomers);
         btnSave_customers = root.findViewById(R.id.btnSave_customers);
         btnAdd_customers = root.findViewById(R.id.btnAdd_customers);
         btnDelete_customers = root.findViewById(R.id.btnDelete_customers);
-
 
         etCustomerId = root.findViewById(R.id.etCustomerId);
         etCustFirstName = root.findViewById(R.id.etCustFirstName);
@@ -92,8 +90,6 @@ public class CustomersFragment extends Fragment {
         etCustEmail = root.findViewById(R.id.etCustEmail);
         etAgentId = root.findViewById(R.id.etAgentId);
 
-
-
         // Load customers data into listview.
         Executors.newSingleThreadExecutor().execute(new GetCustomers());
         
@@ -102,19 +98,33 @@ public class CustomersFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (etCustomerId.getText().toString().isEmpty()){
-                    Customer c = new Customer(0, etCustFirstName.getText().toString(),
-                            etCustLastName.getText().toString(), etCustAddress.getText().toString(), etCustCity.getText().toString(),
-                            etCustProv.getText().toString(), etCustPostal.getText().toString(), etCustCountry.getText().toString(),
-                            etCustHomePhone.getText().toString(), etCustBusPhone.getText().toString(), etCustEmail.getText().toString(),
+                    Customer c = new Customer(0,
+                            etCustFirstName.getText().toString(),
+                            etCustLastName.getText().toString(),
+                            etCustAddress.getText().toString(),
+                            etCustCity.getText().toString(),
+                            etCustProv.getText().toString(),
+                            etCustPostal.getText().toString(),
+                            etCustCountry.getText().toString(),
+                            etCustHomePhone.getText().toString(),
+                            etCustBusPhone.getText().toString(),
+                            etCustEmail.getText().toString(),
                             Integer.parseInt(etAgentId.getText().toString()));
                     Executors.newSingleThreadExecutor().execute(new PostCustomer(c));
 
                 } else {
                     Customer c = new Customer(
-                            Integer.parseInt(etCustomerId.getText().toString()), etCustFirstName.getText().toString(),
-                            etCustLastName.getText().toString(), etCustAddress.getText().toString(), etCustCity.getText().toString(),
-                            etCustProv.getText().toString(), etCustPostal.getText().toString(), etCustCountry.getText().toString(),
-                            etCustHomePhone.getText().toString(), etCustBusPhone.getText().toString(), etCustEmail.getText().toString(),
+                            Integer.parseInt(etCustomerId.getText().toString()),
+                            etCustFirstName.getText().toString(),
+                            etCustLastName.getText().toString(),
+                            etCustAddress.getText().toString(),
+                            etCustCity.getText().toString(),
+                            etCustProv.getText().toString(),
+                            etCustPostal.getText().toString(),
+                            etCustCountry.getText().toString(),
+                            etCustHomePhone.getText().toString(),
+                            etCustBusPhone.getText().toString(),
+                            etCustEmail.getText().toString(),
                             Integer.parseInt(etAgentId.getText().toString()));
                     Executors.newSingleThreadExecutor().execute(new PutCustomer(c));
 

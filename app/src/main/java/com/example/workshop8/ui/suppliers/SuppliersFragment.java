@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,15 +27,17 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
-import com.example.workshop8.ui.customers.Customer;
 import com.example.workshop8.ui.suppliers.Supplier;
 import com.example.workshop8.ui.suppliers.SuppliersFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -46,13 +49,20 @@ public class SuppliersFragment extends Fragment {
 
     RequestQueue requestQueue;
     ListView lvSuppliers;
+    FloatingActionButton btnAdd_suppliers, btnSave_suppliers, btnDelete_suppliers;
     EditText etSupplierId, etSupName;
+
+    String saveState;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        supplier = new ViewModelProvider(this).get(Supplier.class);
         View root = inflater.inflate(R.layout.fragment_suppliers, container, false);
         lvSuppliers = root.findViewById(R.id.lvSuppliers);
+        btnAdd_suppliers = root.findViewById(R.id.btnAdd_suppliers);
+        btnSave_suppliers = root.findViewById(R.id.btnSave_suppliers);
+        btnDelete_suppliers = root.findViewById(R.id.btnDelete_suppliers);
         etSupplierId = root.findViewById(R.id.etSupplierId);
         etSupName = root.findViewById(R.id.etSupName);
 
@@ -66,6 +76,59 @@ public class SuppliersFragment extends Fragment {
                 Supplier s = (Supplier) lvSuppliers.getAdapter().getItem(position);
                 etSupplierId.setText(s.getSupplierId() + "");
                 etSupName.setText(s.getSupName());
+                saveState = "update";
+            }
+        });
+
+        btnAdd_suppliers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSupplierId.setText("");
+                etSupName.setText("Name Placeholder");
+
+            }
+        });
+
+        btnSave_suppliers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etSupplierId.getText().toString().isEmpty()){
+                    Supplier s = new Supplier(
+                            0,
+                            etSupName.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new PostSupplier(s));
+                } else {
+                    Supplier s = new Supplier(
+                            Integer.parseInt(etSupplierId.getText().toString()),
+                            etSupName.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new PutSupplier(s));
+                }
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+
+            }
+        });
+
+        btnDelete_suppliers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etSupplierId.getText().toString().isEmpty()){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                            "Please select a supplier to delete!", Toast.LENGTH_LONG);
+                    toast.show();
+                } else{
+                    // means one supplier is clicked.
+                    int suppId = Integer.parseInt(etSupplierId.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new DeleteSupplier(suppId));
+
+                    etSupplierId.setText("");
+                    etSupName.setText("");
+                }
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+
             }
         });
 
@@ -80,11 +143,12 @@ public class SuppliersFragment extends Fragment {
     }
 
     private void listSuppliers(){
-        String url = "http://10.0.0.165:8080/workshop7_war_exploded/suppliers/getallsuppliers";
+        String url = urlStart + "getallsuppliers";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                ArrayAdapter<Supplier> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1);
+                ArrayAdapter<Supplier> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),
+                        android.R.layout.simple_list_item_1);
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     for (int i = 0; i < jsonArray.length(); i++){
@@ -129,6 +193,22 @@ public class SuppliersFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             VolleyLog.d("!!!Response" + response);
+
+                            try {
+                                String state = response.getString("state");
+                                if (state.equals("fail")){
+                                    String detail = response.getString("detail");
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            "Supplier Updated", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -146,11 +226,8 @@ public class SuppliersFragment extends Fragment {
                     headers.put("Content-Type", "application/json; charset=utf-8");
                     return headers;
                 }
-
             };
-
             requestQueue.add(putRequest);
-
         }
     }
 
@@ -176,6 +253,19 @@ public class SuppliersFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             VolleyLog.d("!!!Response" + response);
+                            try {
+                                String state = response.getString("state");
+                                if (state.equals("fail")){
+                                    String detail = response.getString("detail");
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Supplier Added", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -216,6 +306,21 @@ public class SuppliersFragment extends Fragment {
                         @Override
                         public void onResponse(String response) {
                             VolleyLog.d("!!!Response" + response);
+
+                            JsonObject json = new Gson().fromJson(response, JsonObject.class);
+                            try {
+                                String state = json.get("state").getAsString();
+                                if (state.equals("fail")){
+                                    String detail = json.get("detail").toString();
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Supplier Deleted", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()

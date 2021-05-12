@@ -1,24 +1,28 @@
 package com.example.workshop8.ui.packages;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
 
-public class Package extends ViewModel {
+public class Package extends ViewModel implements Serializable {
 
     private int PackageId;
     private String PkgName;
-    private String PkgStartDate;
-    private String PkgEndDate;
+    private Date PkgStartDate;
+    private Date PkgEndDate;
     private String PkgDesc;
     private double PkgBasePrice;
     private double PkgAgencyCommission;
 
-
-    public Package(int packageId, String pkgName, String pkgStartDate, String pkgEndDate, String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
+    public Package(int packageId, String pkgName, Date pkgStartDate, Date pkgEndDate,
+                   String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
         PackageId = packageId;
         PkgName = pkgName;
         PkgStartDate = pkgStartDate;
@@ -44,19 +48,19 @@ public class Package extends ViewModel {
         PkgName = pkgName;
     }
 
-    public String getPkgStartDate() {
+    public Date getPkgStartDate() {
         return PkgStartDate;
     }
 
-    public void setPkgStartDate(String pkgStartDate) {
+    public void setPkgStartDate(Date pkgStartDate) {
         PkgStartDate = pkgStartDate;
     }
 
-    public String getPkgEndDate() {
+    public Date getPkgEndDate() {
         return PkgEndDate;
     }
 
-    public void setPkgEndDate(String pkgEndDate) {
+    public void setPkgEndDate(Date pkgEndDate) {
         PkgEndDate = pkgEndDate;
     }
 

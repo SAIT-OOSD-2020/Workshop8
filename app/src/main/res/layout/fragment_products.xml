@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="textPersonName"
                 android:text="Name"
                 app:layout_constraintBottom_toBottomOf="@+id/textView10"
