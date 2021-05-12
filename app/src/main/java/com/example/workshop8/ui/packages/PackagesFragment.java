@@ -1,6 +1,7 @@
 package com.example.workshop8.ui.packages;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
 import com.example.workshop8.ui.customers.Customer;
+import com.example.workshop8.ui.customers.CustomersFragment;
 import com.example.workshop8.ui.packages.Package;
 import com.example.workshop8.ui.packages.PackagesFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,19 +39,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
+import java.sql.Date;
 
 public class PackagesFragment extends Fragment {
 
     private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/packages/";
     //private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/packages/";
+
     RequestQueue requestQueue;
     ListView lvPackages;
     FloatingActionButton btnAdd_packages, btnSave_packages, btnDelete_packages;
     EditText etPackageId, etPkgName, etPkgStartDate, etPkgEndDate,
             etPkgDesc, etPkgBasePrice, etPkgAgencyCommission;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,11 +86,69 @@ public class PackagesFragment extends Fragment {
                 Package p = (Package) lvPackages.getAdapter().getItem(position);
                 etPackageId.setText(p.getPackageId()+"");
                 etPkgName.setText(p.getPkgName());
-                etPkgStartDate.setText(p.getPkgStartDate().toString());
-                etPkgEndDate.setText(p.getPkgEndDate().toString());
+                etPkgStartDate.setText(p.getPkgStartDate());
+                etPkgEndDate.setText(p.getPkgEndDate());
                 etPkgDesc.setText(p.getPkgDesc());
                 etPkgBasePrice.setText(p.getPkgBasePrice()+"");
                 etPkgAgencyCommission.setText(p.getPkgAgencyCommission()+"");
+            }
+        });
+
+
+        btnSave_packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etPackageId.getText().toString().isEmpty()){
+                    Package p = new Package(0,
+                            etPkgName.getText().toString(),
+                            etPkgStartDate.getText().toString(),
+                            etPkgEndDate.getText().toString(),
+                            etPkgDesc.getText().toString(),
+                            Double.parseDouble(etPkgBasePrice.getText().toString()),
+                            Double.parseDouble(etPkgAgencyCommission.getText().toString()));
+                    Executors.newSingleThreadExecutor().execute(new PackagesFragment.PostPackage(p));
+
+                } else {
+                    Package p = new Package(Integer.parseInt(etPackageId.getText().toString()),
+                            etPkgName.getText().toString(),
+                            etPkgStartDate.getText().toString(),
+                            etPkgEndDate.getText().toString(),
+                            etPkgDesc.getText().toString(),
+                            Double.parseDouble(etPkgBasePrice.getText().toString()),
+                            Double.parseDouble(etPkgAgencyCommission.getText().toString()));
+                    Executors.newSingleThreadExecutor().execute(new PackagesFragment.PutPackage(p));
+
+                }
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+
+            }
+        });
+
+        btnAdd_packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnDelete_packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etPackageId.getText().toString().isEmpty()){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Please select a package to delete!", Toast.LENGTH_LONG);
+                    toast.show();
+                } else{
+                    // means one customer is clicked.
+                    int pkgId = Integer.parseInt(etPackageId.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new PackagesFragment.DeletePackage(pkgId));
+
+                }
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+
             }
         });
 
@@ -216,7 +282,7 @@ public class PackagesFragment extends Fragment {
             };
 
             requestQueue.add(putRequest);
-
+            listPackages();
         }
     }
 
@@ -256,6 +322,7 @@ public class PackagesFragment extends Fragment {
             };
 
             requestQueue.add(stringRequest);
+            listPackages();
         }
     }
 

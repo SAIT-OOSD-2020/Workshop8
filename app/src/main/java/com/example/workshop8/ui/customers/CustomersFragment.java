@@ -37,15 +37,15 @@ import java.util.concurrent.Executors;
 
 public class CustomersFragment extends Fragment {
 
-//    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
-    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
+    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
+//    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
 
     private Customer customer;
     RequestQueue requestQueue;
     ListView lvCustomers;
-    FloatingActionButton btnAdd_packages;
-    FloatingActionButton btnSave_packages;
-    FloatingActionButton btnDelete_packages;
+    FloatingActionButton btnAdd_customers;
+    FloatingActionButton btnSave_customers;
+    FloatingActionButton btnDelete_customers;
 
     EditText etCustomerId;
     EditText etCustFirstName;
@@ -72,9 +72,9 @@ public class CustomersFragment extends Fragment {
 
 
         lvCustomers = root.findViewById(R.id.lvCustomers);
-        btnSave_packages = root.findViewById(R.id.btnSave_packages);
-        btnAdd_packages = root.findViewById(R.id.btnAdd_packages);
-        btnDelete_packages = root.findViewById(R.id.btnDelete_packages);
+        btnSave_customers = root.findViewById(R.id.btnSave_customers);
+        btnAdd_customers = root.findViewById(R.id.btnAdd_customers);
+        btnDelete_customers = root.findViewById(R.id.btnDelete_customers);
 
 
         etCustomerId = root.findViewById(R.id.etCustomerId);
@@ -98,7 +98,7 @@ public class CustomersFragment extends Fragment {
         Executors.newSingleThreadExecutor().execute(new GetCustomers());
         
 
-        btnSave_packages.setOnClickListener(new View.OnClickListener() {
+        btnSave_customers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (etCustomerId.getText().toString().isEmpty()){
@@ -142,7 +142,7 @@ public class CustomersFragment extends Fragment {
             }
         });
 
-        btnAdd_packages.setOnClickListener(new View.OnClickListener() {
+        btnAdd_customers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 etCustomerId.setText("");
@@ -164,7 +164,7 @@ public class CustomersFragment extends Fragment {
             }
         });
 
-        btnDelete_packages.setOnClickListener(new View.OnClickListener() {
+        btnDelete_customers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (etCustomerId.getText().toString().isEmpty()){
