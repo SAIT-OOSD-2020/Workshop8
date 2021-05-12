@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,8 +37,8 @@ import java.util.concurrent.Executors;
 
 public class CustomersFragment extends Fragment {
 
-    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
-    //private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
+//    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
+    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
 
     private Customer customer;
     RequestQueue requestQueue;
@@ -133,8 +134,9 @@ public class CustomersFragment extends Fragment {
                 etCustEmail.setEnabled(false);
                 etAgentId.setEnabled(false);
 
-                // TODO: Refresh the listview. ↓ This does not work.
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
 //                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+                listCustomers();
                 listCustomers();
 
             }
@@ -143,8 +145,11 @@ public class CustomersFragment extends Fragment {
         btnAdd_packages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                etCustomerId.setText("");
                 etCustFirstName.setEnabled(true);
+                etCustFirstName.setText("SampleFName");
                 etCustLastName.setEnabled(true);
+                etCustLastName.setText("SampleLName");
                 etCustAddress.setEnabled(true);
 
                 etCustCity.setEnabled(true);
@@ -163,11 +168,16 @@ public class CustomersFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (etCustomerId.getText().toString().isEmpty()){
-
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Please select a customer to delete!", Toast.LENGTH_LONG);
+                    toast.show();
                 } else{
                     // means one customer is clicked.
                     int custId = Integer.parseInt(etCustomerId.getText().toString());
                     Executors.newSingleThreadExecutor().execute(new DeleteCustomer(custId));
+
+                    etCustomerId.setText("");
+                    etCustFirstName.setText("");
+                    etCustLastName.setText("");
                 }
 
                 etCustFirstName.setEnabled(false);
@@ -184,8 +194,9 @@ public class CustomersFragment extends Fragment {
                 etCustEmail.setEnabled(false);
                 etAgentId.setEnabled(false);
 
-                // TODO: Refresh the listview. ↓ This does not work.
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
 //                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+                listCustomers();
                 listCustomers();
             }
         });
@@ -290,6 +301,22 @@ public class CustomersFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             VolleyLog.d("!!!Response" + response);
+
+                            try {
+                                String state = response.getString("state");
+                                if (state.equals("fail")){
+                                    String detail = response.getString("detail");
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Updated!", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -337,6 +364,22 @@ public class CustomersFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             VolleyLog.d("!!!Response" + response);
+
+                            try {
+                                String state = response.getString("state");
+                                if (state.equals("fail")){
+                                    String detail = response.getString("detail");
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Added!", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -377,6 +420,23 @@ public class CustomersFragment extends Fragment {
                         @Override
                         public void onResponse(String response) {
                             VolleyLog.d("!!!Response" + response);
+
+                            JsonObject json = new Gson().fromJson(response, JsonObject.class);
+                            try {
+                                String state = json.get("state").getAsString();
+                                if (state.equals("fail")){
+                                    String detail = json.get("detail").toString();
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Deleted!", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
