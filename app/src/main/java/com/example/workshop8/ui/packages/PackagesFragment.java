@@ -53,7 +53,7 @@ public class PackagesFragment extends Fragment {
 //    private final String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/packages/";
     private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/packages/";
 
-    private String saveState;
+    private String saveState = "";
 
     RequestQueue requestQueue;
     ListView lvPackages;
@@ -166,16 +166,17 @@ public class PackagesFragment extends Fragment {
         btnSave_packages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etPackageId.getText().toString().isEmpty()){
+                String test = etPackageId.getText().toString();
+                if (saveState.equals("create")){
                     Package p = new Package(0,
-                                etPkgName.getText().toString(),
-                                Date.valueOf((etPkgStartDate.getText().toString())),
-                                Date.valueOf((etPkgEndDate.getText().toString())),
-                                etPkgDesc.getText().toString(),
-                                BigInteger.valueOf(Integer.parseInt(etPkgBasePrice.getText().toString())),
-                                BigInteger.valueOf(Integer.parseInt(etPkgAgencyCommission.getText().toString())));
+                            etPkgName.getText().toString(),
+                            Date.valueOf((etPkgStartDate.getText().toString())),
+                            Date.valueOf((etPkgEndDate.getText().toString())),
+                            etPkgDesc.getText().toString(),
+                            BigInteger.valueOf(Integer.parseInt(etPkgBasePrice.getText().toString())),
+                            BigInteger.valueOf(Integer.parseInt(etPkgAgencyCommission.getText().toString())));
                     Executors.newSingleThreadExecutor().execute(new PostPackage(p));
-                } else {
+                } else if (saveState.equals("update")) {
                     Package p = new Package(
                             Integer.parseInt(etPackageId.getText().toString()),
                             etPkgName.getText().toString(),
@@ -187,6 +188,28 @@ public class PackagesFragment extends Fragment {
                     Executors.newSingleThreadExecutor().execute(new PutPackage(p));
                 }
 
+//                if (etPackageId.getText().toString().isEmpty()){
+//                    Package p = new Package(0,
+//                                etPkgName.getText().toString(),
+//                                Date.valueOf((etPkgStartDate.getText().toString())),
+//                                Date.valueOf((etPkgEndDate.getText().toString())),
+//                                etPkgDesc.getText().toString(),
+//                                BigInteger.valueOf(Integer.parseInt(etPkgBasePrice.getText().toString())),
+//                                BigInteger.valueOf(Integer.parseInt(etPkgAgencyCommission.getText().toString())));
+//                    Executors.newSingleThreadExecutor().execute(new PostPackage(p));
+//                } else {
+//                    Package p = new Package(
+//                            Integer.parseInt(etPackageId.getText().toString()),
+//                            etPkgName.getText().toString(),
+//                            Date.valueOf((etPkgStartDate.getText().toString())),
+//                            Date.valueOf((etPkgEndDate.getText().toString())),
+//                            etPkgDesc.getText().toString(),
+//                            BigInteger.valueOf(Integer.parseInt(etPkgBasePrice.getText().toString())),
+//                            BigInteger.valueOf(Integer.parseInt(etPkgAgencyCommission.getText().toString())));
+//                    Executors.newSingleThreadExecutor().execute(new PutPackage(p));
+//                }
+
+                saveState = "";
                 btnAdd_packages.setEnabled(true);
 
                 etPkgName.setEnabled(false);
