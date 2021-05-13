@@ -43,8 +43,8 @@ import java.util.concurrent.Executors;
 
 public class ProductsFragment extends Fragment {
 
-    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/products/";
-    //private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/products/";
+//    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/products/";
+    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/products/";
 
     RequestQueue requestQueue;
     ListView lvProducts;
@@ -141,7 +141,8 @@ public class ProductsFragment extends Fragment {
     }
 
     private void listProducts(){
-        String url = "http://10.0.0.165:8080/workshop7_war_exploded/products/getallproducts";
+//        String url = "http://10.0.0.165:8080/workshop7_war_exploded/products/getallproducts";
+        String url = urlStart + "getallproducts";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
