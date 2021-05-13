@@ -8,13 +8,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,29 +23,37 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
-import com.example.workshop8.ui.customers.Customer;
-import com.example.workshop8.ui.packages.Package;
-import com.example.workshop8.ui.packages.PackagesFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
 public class PackagesFragment extends Fragment {
 
-    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/packages/";
+    private final String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/packages/";
     //private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/packages/";
+
+    private String saveState;
+
     RequestQueue requestQueue;
     ListView lvPackages;
     FloatingActionButton btnAdd_packages, btnSave_packages, btnDelete_packages;
     EditText etPackageId, etPkgName, etPkgStartDate, etPkgEndDate,
             etPkgDesc, etPkgBasePrice, etPkgAgencyCommission;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy, hh:mm:ss aaa");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,13 +81,79 @@ public class PackagesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Package p = (Package) lvPackages.getAdapter().getItem(position);
-                etPackageId.setText(p.getPackageId()+"");
+                etPackageId.setText(String.valueOf(p.getPackageId()));
                 etPkgName.setText(p.getPkgName());
                 etPkgStartDate.setText(p.getPkgStartDate().toString());
                 etPkgEndDate.setText(p.getPkgEndDate().toString());
                 etPkgDesc.setText(p.getPkgDesc());
-                etPkgBasePrice.setText(p.getPkgBasePrice()+"");
-                etPkgAgencyCommission.setText(p.getPkgAgencyCommission()+"");
+                etPkgBasePrice.setText(String.valueOf(p.getPkgBasePrice()));
+                etPkgAgencyCommission.setText(String.valueOf(p.getPkgAgencyCommission()));
+                saveState = "update";
+            }
+        });
+
+        btnAdd_packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etPackageId.setText("");
+                etPkgName.setText("");
+                etPkgStartDate.setText("Jan 1, 2000, 12:00:00 AM");
+                etPkgEndDate.setText("Jan 2, 2000, 12:00:00 AM");
+                etPkgDesc.setText("");
+                etPkgBasePrice.setText("");
+                etPkgAgencyCommission.setText("");
+                btnAdd_packages.setEnabled(false);
+                btnSave_packages.setEnabled(true);
+                saveState = "create";
+            }
+        });
+
+        btnSave_packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etPackageId.getText().toString().isEmpty()){
+                    Package p = new Package(0,
+                                etPkgName.getText().toString(),
+                                Date.valueOf((etPkgStartDate.getText().toString())),
+                                Date.valueOf((etPkgEndDate.getText().toString())),
+                                etPkgDesc.getText().toString(),
+                                BigInteger.valueOf(Integer.parseInt(etPkgBasePrice.getText().toString())),
+                                BigInteger.valueOf(Integer.parseInt(etPkgAgencyCommission.getText().toString())));
+                    Executors.newSingleThreadExecutor().execute(new PostPackage(p));
+                } else {
+                    Package p = new Package(
+                            Integer.parseInt(etPackageId.getText().toString()),
+                            etPkgName.getText().toString(),
+                            Date.valueOf((etPkgStartDate.getText().toString())),
+                            Date.valueOf((etPkgEndDate.getText().toString())),
+                            etPkgDesc.getText().toString(),
+                            BigInteger.valueOf(Integer.parseInt(etPkgBasePrice.getText().toString())),
+                            BigInteger.valueOf(Integer.parseInt(etPkgAgencyCommission.getText().toString())));
+                    Executors.newSingleThreadExecutor().execute(new PutPackage(p));
+                }
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+
+            }
+        });
+
+        btnDelete_packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etPackageId.getText().toString().isEmpty()){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Please select a package to delete!", Toast.LENGTH_LONG);
+                    toast.show();
+                } else{
+                    // means one customer is clicked.
+                    int pkgId = Integer.parseInt(etPackageId.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new PackagesFragment.DeletePackage(pkgId));
+
+                }
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+
             }
         });
 
@@ -130,7 +201,7 @@ public class PackagesFragment extends Fragment {
         JSONObject pkgJson;
 
         public PutPackage(Package pkg) {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
             String jsonString = gson.toJson(pkg);
             try {
                 pkgJson = new JSONObject(jsonString);
@@ -148,6 +219,22 @@ public class PackagesFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             VolleyLog.d("!!!Response" + response);
+
+                            try {
+                                String state = response.getString("state");
+                                if (state.equals("fail")){
+                                    String detail = response.getString("detail");
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Updated!", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -169,7 +256,6 @@ public class PackagesFragment extends Fragment {
             };
 
             requestQueue.add(putRequest);
-
         }
     }
 
@@ -177,7 +263,7 @@ public class PackagesFragment extends Fragment {
         JSONObject pkgJson;
 
         public PostPackage(Package pkg) {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
             String jsonString = gson.toJson(pkg);
             try {
                 pkgJson = new JSONObject(jsonString);
@@ -256,6 +342,7 @@ public class PackagesFragment extends Fragment {
             };
 
             requestQueue.add(stringRequest);
+
         }
     }
 

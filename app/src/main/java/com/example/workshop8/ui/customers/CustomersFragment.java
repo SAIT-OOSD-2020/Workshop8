@@ -37,15 +37,15 @@ import java.util.concurrent.Executors;
 
 public class CustomersFragment extends Fragment {
 
-//    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
-    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
+    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
+//    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
 
     private Customer customer;
     RequestQueue requestQueue;
     ListView lvCustomers;
-    FloatingActionButton btnAdd_packages;
-    FloatingActionButton btnSave_packages;
-    FloatingActionButton btnDelete_packages;
+    FloatingActionButton btnAdd_customers;
+    FloatingActionButton btnSave_customers;
+    FloatingActionButton btnDelete_customers;
 
     EditText etCustomerId;
     EditText etCustFirstName;
@@ -70,12 +70,10 @@ public class CustomersFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_customers, container, false);
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-
         lvCustomers = root.findViewById(R.id.lvCustomers);
-        btnSave_packages = root.findViewById(R.id.btnSave_packages);
-        btnAdd_packages = root.findViewById(R.id.btnAdd_packages);
-        btnDelete_packages = root.findViewById(R.id.btnDelete_packages);
-
+        btnSave_customers = root.findViewById(R.id.btnSave_customers);
+        btnAdd_customers = root.findViewById(R.id.btnAdd_customers);
+        btnDelete_customers = root.findViewById(R.id.btnDelete_customers);
 
         etCustomerId = root.findViewById(R.id.etCustomerId);
         etCustFirstName = root.findViewById(R.id.etCustFirstName);
@@ -92,29 +90,41 @@ public class CustomersFragment extends Fragment {
         etCustEmail = root.findViewById(R.id.etCustEmail);
         etAgentId = root.findViewById(R.id.etAgentId);
 
-
-
         // Load customers data into listview.
         Executors.newSingleThreadExecutor().execute(new GetCustomers());
         
 
-        btnSave_packages.setOnClickListener(new View.OnClickListener() {
+        btnSave_customers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (etCustomerId.getText().toString().isEmpty()){
-                    Customer c = new Customer(0, etCustFirstName.getText().toString(),
-                            etCustLastName.getText().toString(), etCustAddress.getText().toString(), etCustCity.getText().toString(),
-                            etCustProv.getText().toString(), etCustPostal.getText().toString(), etCustCountry.getText().toString(),
-                            etCustHomePhone.getText().toString(), etCustBusPhone.getText().toString(), etCustEmail.getText().toString(),
+                    Customer c = new Customer(0,
+                            etCustFirstName.getText().toString(),
+                            etCustLastName.getText().toString(),
+                            etCustAddress.getText().toString(),
+                            etCustCity.getText().toString(),
+                            etCustProv.getText().toString(),
+                            etCustPostal.getText().toString(),
+                            etCustCountry.getText().toString(),
+                            etCustHomePhone.getText().toString(),
+                            etCustBusPhone.getText().toString(),
+                            etCustEmail.getText().toString(),
                             Integer.parseInt(etAgentId.getText().toString()));
                     Executors.newSingleThreadExecutor().execute(new PostCustomer(c));
 
                 } else {
                     Customer c = new Customer(
-                            Integer.parseInt(etCustomerId.getText().toString()), etCustFirstName.getText().toString(),
-                            etCustLastName.getText().toString(), etCustAddress.getText().toString(), etCustCity.getText().toString(),
-                            etCustProv.getText().toString(), etCustPostal.getText().toString(), etCustCountry.getText().toString(),
-                            etCustHomePhone.getText().toString(), etCustBusPhone.getText().toString(), etCustEmail.getText().toString(),
+                            Integer.parseInt(etCustomerId.getText().toString()),
+                            etCustFirstName.getText().toString(),
+                            etCustLastName.getText().toString(),
+                            etCustAddress.getText().toString(),
+                            etCustCity.getText().toString(),
+                            etCustProv.getText().toString(),
+                            etCustPostal.getText().toString(),
+                            etCustCountry.getText().toString(),
+                            etCustHomePhone.getText().toString(),
+                            etCustBusPhone.getText().toString(),
+                            etCustEmail.getText().toString(),
                             Integer.parseInt(etAgentId.getText().toString()));
                     Executors.newSingleThreadExecutor().execute(new PutCustomer(c));
 
@@ -142,7 +152,7 @@ public class CustomersFragment extends Fragment {
             }
         });
 
-        btnAdd_packages.setOnClickListener(new View.OnClickListener() {
+        btnAdd_customers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 etCustomerId.setText("");
@@ -164,7 +174,7 @@ public class CustomersFragment extends Fragment {
             }
         });
 
-        btnDelete_packages.setOnClickListener(new View.OnClickListener() {
+        btnDelete_customers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (etCustomerId.getText().toString().isEmpty()){

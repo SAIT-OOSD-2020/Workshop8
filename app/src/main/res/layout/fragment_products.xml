@@ -47,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:ems="10"
+                android:enabled="false"
                 android:inputType="textPersonName"
-                android:text="Name"
                 app:layout_constraintBottom_toBottomOf="@+id/textView10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView10" />
@@ -70,7 +70,6 @@
                 android:layout_marginEnd="32dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
                 app:layout_constraintBottom_toBottomOf="@+id/textView11"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView11" />
@@ -79,7 +78,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAdd_packages"
+        android:id="@+id/btnAdd_products"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -87,11 +86,11 @@
         android:clickable="true"
         android:contentDescription="@string/fab_add"
         android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toTopOf="@+id/btnSave_packages"
+        app:layout_constraintBottom_toTopOf="@+id/btnSave_products"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnSave_packages"
+        android:id="@+id/btnSave_products"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -99,11 +98,11 @@
         android:clickable="true"
         android:contentDescription="@string/fab_save"
         android:src="@drawable/ic_save"
-        app:layout_constraintBottom_toTopOf="@+id/btnDelete_packages"
+        app:layout_constraintBottom_toTopOf="@+id/btnDelete_products"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnDelete_packages"
+        android:id="@+id/btnDelete_products"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
