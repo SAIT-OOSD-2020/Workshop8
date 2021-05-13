@@ -39,8 +39,8 @@ import java.util.concurrent.Executors;
 
 public class CustomersFragment extends Fragment {
 
-//    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
-    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
+    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
+//    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
 
     RequestQueue requestQueue;
     ListView lvCustomers;

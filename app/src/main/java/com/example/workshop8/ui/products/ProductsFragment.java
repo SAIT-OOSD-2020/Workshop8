@@ -44,9 +44,9 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 
 public class ProductsFragment extends Fragment {
-
-//    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/products/";
-    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/products/";
+//
+    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/products/";
+//    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/products/";
 
     RequestQueue requestQueue;
     ListView lvProducts;

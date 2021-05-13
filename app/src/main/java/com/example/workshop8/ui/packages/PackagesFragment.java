@@ -50,8 +50,8 @@ import java.util.concurrent.Executors;
 
 public class PackagesFragment extends Fragment {
 
-//    private final String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/packages/";
-    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/packages/";
+    private final String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/packages/";
+//    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/packages/";
 
     private String saveState = "";
 
