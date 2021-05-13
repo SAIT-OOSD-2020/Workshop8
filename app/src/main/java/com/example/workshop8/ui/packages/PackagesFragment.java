@@ -76,6 +76,7 @@ public class PackagesFragment extends Fragment {
         etPackageId = root.findViewById(R.id.etPackageId);
         etPkgName = root.findViewById(R.id.etPkgName);
         etPkgStartDate = root.findViewById(R.id.etPkgStartDate);
+        etPkgEndDate = root.findViewById(R.id.etPkgEndDate);
 
         final Calendar myCalendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -87,7 +88,9 @@ public class PackagesFragment extends Fragment {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                String myFormat = "MM/dd/yyyy"; //In which you need put here
+//                String myFormat = "MM/dd/yyyy"; //In which you need put here
+                String myFormat = "yyyy-MM-dd";
+
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
 
                 etPkgStartDate.setText(sdf.format(myCalendar.getTime()));
@@ -95,16 +98,7 @@ public class PackagesFragment extends Fragment {
 
         };
 
-        etPkgStartDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(v.getContext(), date,
-                        myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+
 
 
 
@@ -132,6 +126,16 @@ public class PackagesFragment extends Fragment {
                 etPkgBasePrice.setText(String.valueOf(p.getPkgBasePrice()));
                 etPkgAgencyCommission.setText(String.valueOf(p.getPkgAgencyCommission()));
                 saveState = "update";
+
+                btnAdd_packages.setEnabled(true);
+
+                etPkgName.setEnabled(true);
+                etPkgStartDate.setEnabled(true);
+                etPkgEndDate.setEnabled(true);
+                etPkgDesc.setEnabled(true);
+                etPkgBasePrice.setEnabled(true);
+                etPkgAgencyCommission.setEnabled(true);
+
             }
         });
 
@@ -139,15 +143,23 @@ public class PackagesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 etPackageId.setText("");
-                etPkgName.setText("");
+                etPkgName.setText("Sample Name");
                 etPkgStartDate.setText("2020-01-30");
                 etPkgEndDate.setText("2020-02-30");
-                etPkgDesc.setText("");
-                etPkgBasePrice.setText("");
-                etPkgAgencyCommission.setText("");
+                etPkgDesc.setText("Sample");
+                etPkgBasePrice.setText("111");
+                etPkgAgencyCommission.setText("111");
                 btnAdd_packages.setEnabled(false);
                 btnSave_packages.setEnabled(true);
                 saveState = "create";
+
+                etPkgName.setEnabled(true);
+                etPkgStartDate.setEnabled(true);
+                etPkgEndDate.setEnabled(true);
+                etPkgDesc.setEnabled(true);
+                etPkgBasePrice.setEnabled(true);
+                etPkgAgencyCommission.setEnabled(true);
+
             }
         });
 
@@ -175,8 +187,22 @@ public class PackagesFragment extends Fragment {
                     Executors.newSingleThreadExecutor().execute(new PutPackage(p));
                 }
 
-                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+                btnAdd_packages.setEnabled(true);
+
+                etPkgName.setEnabled(false);
+                etPkgStartDate.setEnabled(false);
+                etPkgEndDate.setEnabled(false);
+                etPkgDesc.setEnabled(false);
+                etPkgBasePrice.setEnabled(false);
+                etPkgAgencyCommission.setEnabled(false);
+
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call three times!!!
 //                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+                listPackages();
+                listPackages();
+                listPackages();
+
 
             }
         });
@@ -194,27 +220,83 @@ public class PackagesFragment extends Fragment {
 
                 }
 
+                btnAdd_packages.setEnabled(true);
+
+                etPackageId.setText("");
+                etPkgName.setText("Sample Name");
+                etPkgStartDate.setText("2020-01-30");
+                etPkgEndDate.setText("2020-02-30");
+                etPkgDesc.setText("Sample");
+                etPkgBasePrice.setText("111");
+                etPkgAgencyCommission.setText("111");
+                etPkgName.setEnabled(false);
+                etPkgStartDate.setEnabled(false);
+                etPkgEndDate.setEnabled(false);
+                etPkgDesc.setEnabled(false);
+                etPkgBasePrice.setEnabled(false);
+                etPkgAgencyCommission.setEnabled(false);
+
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
 //                Executors.newSingleThreadExecutor().execute(new GetCustomers());
+                listPackages();
+                listPackages();
+                listPackages();
 
+
+            }
+        });
+
+        etPkgStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(v.getContext(), date,
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        etPkgEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(v.getContext(), date,
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
         btnStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerFragment newFragment = new DatePickerFragment();
-                newFragment.setETView(etPkgStartDate);
-                newFragment.show(getActivity().getSupportFragmentManager(), "startDate");
+//                DatePickerFragment newFragment = new DatePickerFragment();
+//                newFragment.setETView(etPkgStartDate);
+//                newFragment.show(getActivity().getSupportFragmentManager(), "startDate");
+
+                // If using code above, after selecting a date, the showing month value will decrease 1, will cause error.
+
+                new DatePickerDialog(v.getContext(), date,
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
         btnEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerFragment newFragment = new DatePickerFragment();
-                newFragment.setETView(etPkgEndDate);
-                newFragment.show(getActivity().getSupportFragmentManager(), "endDate");
+//                DatePickerFragment newFragment = new DatePickerFragment();
+//                newFragment.setETView(etPkgEndDate);
+//                newFragment.show(getActivity().getSupportFragmentManager(), "endDate");
+
+                // If using code above, after selecting a date, the showing month value will decrease 1, will cause error.
+
+                new DatePickerDialog(v.getContext(), date,
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -342,6 +424,21 @@ public class PackagesFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             VolleyLog.d("!!!Response" + response);
+                            try {
+                                String state = response.getString("state");
+                                if (state.equals("fail")){
+                                    String detail = response.getString("detail");
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            "Package Added", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -382,6 +479,23 @@ public class PackagesFragment extends Fragment {
                         @Override
                         public void onResponse(String response) {
                             VolleyLog.d("!!!Response" + response);
+
+                            JsonObject json = new Gson().fromJson(response, JsonObject.class);
+                            try {
+                                String state = json.get("state").getAsString();
+                                if (state.equals("fail")){
+                                    String detail = json.get("detail").toString();
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            "Package Deleted", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -416,7 +530,7 @@ public class PackagesFragment extends Fragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
-             int year, month, day;
+            int year, month, day;
             if (et.getText().toString().isEmpty()) {
                 c = Calendar.getInstance();
                 year = c.get(Calendar.YEAR);
