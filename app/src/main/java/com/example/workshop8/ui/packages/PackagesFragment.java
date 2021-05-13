@@ -1,11 +1,14 @@
 package com.example.workshop8.ui.packages;
 
+import android.app.DatePickerDialog;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -43,8 +46,8 @@ import java.util.concurrent.Executors;
 
 public class PackagesFragment extends Fragment {
 
-    private final String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/packages/";
-    //private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/packages/";
+//    private final String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/packages/";
+    private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/packages/";
 
     private String saveState;
 
@@ -68,6 +71,38 @@ public class PackagesFragment extends Fragment {
         etPackageId = root.findViewById(R.id.etPackageId);
         etPkgName = root.findViewById(R.id.etPkgName);
         etPkgStartDate = root.findViewById(R.id.etPkgStartDate);
+
+        final Calendar myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                String myFormat = "MM/dd/yyyy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+
+                etPkgStartDate.setText(sdf.format(myCalendar.getTime()));
+            }
+
+        };
+
+        etPkgStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(v.getContext(), date,
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
+
         etPkgEndDate = root.findViewById(R.id.etPkgEndDate);
         etPkgDesc = root.findViewById(R.id.etPkgDesc);
         etPkgBasePrice = root.findViewById(R.id.etPkgBasePrice);
@@ -170,7 +205,7 @@ public class PackagesFragment extends Fragment {
     }
 
     private void listPackages() {
-        String url = "http://10.0.0.165:8080/workshop7_war_exploded/packages/getallpackages";
+        String url = urlStart + "getallpackages";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
