@@ -27,6 +27,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
+import com.example.workshop8.ui.packages.Package;
+import com.example.workshop8.ui.packages.PackagesFragment;
 import com.example.workshop8.ui.suppliers.Supplier;
 import com.example.workshop8.ui.suppliers.SuppliersFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +55,7 @@ public class SuppliersFragment extends Fragment {
     FloatingActionButton btnAdd_suppliers, btnSave_suppliers, btnDelete_suppliers;
     EditText etSupplierId, etSupName;
 
-    String saveState;
+    String saveState = "";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -77,6 +80,11 @@ public class SuppliersFragment extends Fragment {
                 etSupplierId.setText(s.getSupplierId() + "");
                 etSupName.setText(s.getSupName());
                 saveState = "update";
+
+                etSupName.setEnabled(true);
+                btnAdd_suppliers.setEnabled(true);
+
+
             }
         });
 
@@ -86,27 +94,51 @@ public class SuppliersFragment extends Fragment {
                 etSupplierId.setText("");
                 etSupName.setText("New Supplier");
 
+                saveState = "create";
+
+                etSupName.setEnabled(true);
+                btnAdd_suppliers.setEnabled(false);
             }
         });
 
         btnSave_suppliers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etSupplierId.getText().toString().isEmpty()){
+                if (saveState.equals("create")){
                     Supplier s = new Supplier(
                             0,
                             etSupName.getText().toString());
                     Executors.newSingleThreadExecutor().execute(new PostSupplier(s));
-                } else {
+                } else if (saveState.equals("update")) {
                     Supplier s = new Supplier(
                             Integer.parseInt(etSupplierId.getText().toString()),
                             etSupName.getText().toString());
                     Executors.newSingleThreadExecutor().execute(new PutSupplier(s));
                 }
 
+//                if (etSupplierId.getText().toString().isEmpty()){
+//                    Supplier s = new Supplier(
+//                            0,
+//                            etSupName.getText().toString());
+//                    Executors.newSingleThreadExecutor().execute(new PostSupplier(s));
+//                } else {
+//                    Supplier s = new Supplier(
+//                            Integer.parseInt(etSupplierId.getText().toString()),
+//                            etSupName.getText().toString());
+//                    Executors.newSingleThreadExecutor().execute(new PutSupplier(s));
+//                }
+
+                saveState = "";
+
+                etSupName.setEnabled(false);
+                btnAdd_suppliers.setEnabled(true);
+
+
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
 //                Executors.newSingleThreadExecutor().execute(new GetSuppliers());
-                    listSuppliers();
+                listSuppliers();
+                listSuppliers();
+
             }
         });
 
@@ -126,8 +158,14 @@ public class SuppliersFragment extends Fragment {
                     etSupName.setText("");
                 }
 
+                etSupName.setEnabled(false);
+                btnAdd_suppliers.setEnabled(true);
+
+
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
 //                Executors.newSingleThreadExecutor().execute(new GetSuppliers());
+                listSuppliers();
+                listSuppliers();
                 listSuppliers();
             }
         });

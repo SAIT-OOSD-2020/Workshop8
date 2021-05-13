@@ -29,6 +29,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
 import com.example.workshop8.ui.products.Product;
 import com.example.workshop8.ui.products.ProductsFragment;
+import com.example.workshop8.ui.suppliers.Supplier;
+import com.example.workshop8.ui.suppliers.SuppliersFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -51,6 +53,8 @@ public class ProductsFragment extends Fragment {
     FloatingActionButton btnAdd_products, btnSave_products, btnDelete_products;
     EditText etProductId, etProdName;
 
+    String saveState = "";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        products = new ViewModelProvider(this).get(Products.class);
@@ -72,6 +76,11 @@ public class ProductsFragment extends Fragment {
                 Product p = (Product) lvProducts.getAdapter().getItem(position);
                 etProductId.setText(p.getProductId() + "");
                 etProdName.setText(p.getProdName());
+                saveState = "update";
+
+                etProdName.setEnabled(true);
+
+
             }
         });
 
@@ -80,28 +89,50 @@ public class ProductsFragment extends Fragment {
             public void onClick(View v) {
                 etProductId.setText("");
                 etProdName.setText("New Product");
+                saveState = "create";
 
+                btnAdd_products.setEnabled(false);
+                etProdName.setEnabled(true);
             }
         });
 
         btnSave_products.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etProductId.getText().toString().isEmpty()){
+                if (saveState.equals("create")){
                     Product p = new Product(
                             0,
                             etProdName.getText().toString());
                     Executors.newSingleThreadExecutor().execute(new PostProduct(p));
-                } else {
+                } else if (saveState.equals("update")) {
                     Product p = new Product(
                             Integer.parseInt(etProductId.getText().toString()),
                             etProdName.getText().toString());
                     Executors.newSingleThreadExecutor().execute(new PutProduct(p));
                 }
 
+//                if (etProductId.getText().toString().isEmpty()){
+//                    Product p = new Product(
+//                            0,
+//                            etProdName.getText().toString());
+//                    Executors.newSingleThreadExecutor().execute(new PostProduct(p));
+//                } else {
+//                    Product p = new Product(
+//                            Integer.parseInt(etProductId.getText().toString()),
+//                            etProdName.getText().toString());
+//                    Executors.newSingleThreadExecutor().execute(new PutProduct(p));
+//                }
+
+                btnAdd_products.setEnabled(true);
+
+                saveState = "";
+                etProdName.setEnabled(false);
+
+
+
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
-                Executors.newSingleThreadExecutor().shutdownNow();
-                Executors.newSingleThreadExecutor().execute(new GetProducts());
+                listProducts();
+                listProducts();
 
             }
         });
@@ -122,10 +153,15 @@ public class ProductsFragment extends Fragment {
                     etProdName.setText("");
                 }
 
-                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
-                Executors.newSingleThreadExecutor().shutdownNow();
-                Executors.newSingleThreadExecutor().execute(new GetProducts());
+                saveState = "";
 
+                btnAdd_products.setEnabled(true);
+
+                etProdName.setEnabled(false);
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+                listProducts();
+                listProducts();
             }
         });
 
