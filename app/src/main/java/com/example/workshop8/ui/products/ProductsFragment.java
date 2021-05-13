@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +27,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
-import com.example.workshop8.ui.customers.Customer;
 import com.example.workshop8.ui.products.Product;
 import com.example.workshop8.ui.products.ProductsFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +48,7 @@ public class ProductsFragment extends Fragment {
 
     RequestQueue requestQueue;
     ListView lvProducts;
+    FloatingActionButton btnAdd_products, btnSave_products, btnDelete_products;
     EditText etProductId, etProdName;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,7 +56,9 @@ public class ProductsFragment extends Fragment {
 //        products = new ViewModelProvider(this).get(Products.class);
         View root = inflater.inflate(R.layout.fragment_products, container, false);
         lvProducts = root.findViewById(R.id.lvProducts);
-
+        btnAdd_products = root.findViewById(R.id.btnAdd_products);
+        btnSave_products = root.findViewById(R.id.btnSave_products);
+        btnDelete_products = root.findViewById(R.id.btnDelete_products);
         etProductId = root.findViewById(R.id.etProductId);
         etProdName = root.findViewById(R.id.etProdName);
 
@@ -70,13 +75,68 @@ public class ProductsFragment extends Fragment {
             }
         });
 
+        btnAdd_products.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etProductId.setText("");
+                etProdName.setText("New Product");
+
+            }
+        });
+
+        btnSave_products.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etProductId.getText().toString().isEmpty()){
+                    Product p = new Product(
+                            0,
+                            etProdName.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new PostProduct(p));
+                } else {
+                    Product p = new Product(
+                            Integer.parseInt(etProductId.getText().toString()),
+                            etProdName.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new PutProduct(p));
+                }
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+                Executors.newSingleThreadExecutor().shutdownNow();
+                Executors.newSingleThreadExecutor().execute(new GetProducts());
+
+            }
+        });
+
+        btnDelete_products.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etProductId.getText().toString().isEmpty()){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                            "Please select a product to delete!", Toast.LENGTH_LONG);
+                    toast.show();
+                } else{
+                    // means one product is clicked.
+                    int prodId = Integer.parseInt(etProductId.getText().toString());
+                    Executors.newSingleThreadExecutor().execute(new DeleteProduct(prodId));
+
+                    etProductId.setText("");
+                    etProdName.setText("");
+                }
+
+                // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
+                Executors.newSingleThreadExecutor().shutdownNow();
+                Executors.newSingleThreadExecutor().execute(new GetProducts());
+
+            }
+        });
+
         return root;
     }
 
     private class GetProducts implements Runnable {
         @Override
         public void run() {
-            listProducts();
+
+                listProducts();
         }
     }
 
@@ -130,6 +190,21 @@ public class ProductsFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             VolleyLog.d("!!!Response" + response);
+                            try {
+                                String state = response.getString("state");
+                                if (state.equals("fail")){
+                                    String detail = response.getString("detail");
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            "Product Updated", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -177,6 +252,21 @@ public class ProductsFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             VolleyLog.d("!!!Response" + response);
+                            try {
+                                String state = response.getString("state");
+                                if (state.equals("fail")){
+                                    String detail = response.getString("detail");
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            "Supplier Added", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()
@@ -217,6 +307,23 @@ public class ProductsFragment extends Fragment {
                         @Override
                         public void onResponse(String response) {
                             VolleyLog.d("!!!Response" + response);
+
+                            JsonObject json = new Gson().fromJson(response, JsonObject.class);
+                            try {
+                                String state = json.get("state").getAsString();
+                                if (state.equals("fail")){
+                                    String detail = json.get("detail").toString();
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            detail, Toast.LENGTH_LONG);
+                                    toast.show();
+                                } else if (state.equals("success")){
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            "Product Deleted", Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener()

@@ -12,6 +12,11 @@ public class Product extends ViewModel {
     private int ProductId;
     private String ProdName;
 
+    public Product(int productId, String prodName) {
+        ProductId = productId;
+        ProdName = prodName;
+    }
+
     public int getProductId() {
         return ProductId;
     }

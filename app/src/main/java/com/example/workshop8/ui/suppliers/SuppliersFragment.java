@@ -84,7 +84,7 @@ public class SuppliersFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 etSupplierId.setText("");
-                etSupName.setText("Name Placeholder");
+                etSupName.setText("New Supplier");
 
             }
         });
@@ -105,8 +105,8 @@ public class SuppliersFragment extends Fragment {
                 }
 
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
-//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
-
+//                Executors.newSingleThreadExecutor().execute(new GetSuppliers());
+                    listSuppliers();
             }
         });
 
@@ -127,8 +127,8 @@ public class SuppliersFragment extends Fragment {
                 }
 
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
-//                Executors.newSingleThreadExecutor().execute(new GetCustomers());
-
+//                Executors.newSingleThreadExecutor().execute(new GetSuppliers());
+                listSuppliers();
             }
         });
 
@@ -227,7 +227,9 @@ public class SuppliersFragment extends Fragment {
                     return headers;
                 }
             };
+
             requestQueue.add(putRequest);
+
         }
     }
 
@@ -257,10 +259,12 @@ public class SuppliersFragment extends Fragment {
                                 String state = response.getString("state");
                                 if (state.equals("fail")){
                                     String detail = response.getString("detail");
-                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), detail, Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            detail, Toast.LENGTH_LONG);
                                     toast.show();
                                 } else if (state.equals("success")){
-                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Supplier Added", Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            "Supplier Added", Toast.LENGTH_LONG);
                                     toast.show();
                                 }
                             } catch (JSONException e) {
@@ -312,10 +316,12 @@ public class SuppliersFragment extends Fragment {
                                 String state = json.get("state").getAsString();
                                 if (state.equals("fail")){
                                     String detail = json.get("detail").toString();
-                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), detail, Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            detail, Toast.LENGTH_LONG);
                                     toast.show();
                                 } else if (state.equals("success")){
-                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Supplier Deleted", Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                                            "Supplier Deleted", Toast.LENGTH_LONG);
                                     toast.show();
                                 }
                             } catch (Exception e) {
@@ -342,6 +348,7 @@ public class SuppliersFragment extends Fragment {
             };
 
             requestQueue.add(stringRequest);
+
         }
     }
 }
