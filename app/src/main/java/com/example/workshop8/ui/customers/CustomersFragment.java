@@ -23,6 +23,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
+import com.example.workshop8.ui.products.Product;
+import com.example.workshop8.ui.products.ProductsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -40,7 +42,6 @@ public class CustomersFragment extends Fragment {
 //    private String urlStart = "http://10.0.0.165:8080/workshop7_war_exploded/customers/";
     private String urlStart = "http://10.0.2.2:8081/workshop7_war_exploded/customers/";
 
-    private Customer customer;
     RequestQueue requestQueue;
     ListView lvCustomers;
     FloatingActionButton btnAdd_customers;
@@ -61,6 +62,8 @@ public class CustomersFragment extends Fragment {
     EditText etCustBusPhone;
     EditText etCustEmail;
     EditText etAgentId;
+
+    String saveState = "";
 
 
 
@@ -97,7 +100,7 @@ public class CustomersFragment extends Fragment {
         btnSave_customers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etCustomerId.getText().toString().isEmpty()){
+                if (saveState.equals("create")){
                     Customer c = new Customer(0,
                             etCustFirstName.getText().toString(),
                             etCustLastName.getText().toString(),
@@ -111,8 +114,7 @@ public class CustomersFragment extends Fragment {
                             etCustEmail.getText().toString(),
                             Integer.parseInt(etAgentId.getText().toString()));
                     Executors.newSingleThreadExecutor().execute(new PostCustomer(c));
-
-                } else {
+                } else if (saveState.equals("update")) {
                     Customer c = new Customer(
                             Integer.parseInt(etCustomerId.getText().toString()),
                             etCustFirstName.getText().toString(),
@@ -127,8 +129,40 @@ public class CustomersFragment extends Fragment {
                             etCustEmail.getText().toString(),
                             Integer.parseInt(etAgentId.getText().toString()));
                     Executors.newSingleThreadExecutor().execute(new PutCustomer(c));
-
                 }
+
+//                if (etCustomerId.getText().toString().isEmpty()){
+//                    Customer c = new Customer(0,
+//                            etCustFirstName.getText().toString(),
+//                            etCustLastName.getText().toString(),
+//                            etCustAddress.getText().toString(),
+//                            etCustCity.getText().toString(),
+//                            etCustProv.getText().toString(),
+//                            etCustPostal.getText().toString(),
+//                            etCustCountry.getText().toString(),
+//                            etCustHomePhone.getText().toString(),
+//                            etCustBusPhone.getText().toString(),
+//                            etCustEmail.getText().toString(),
+//                            Integer.parseInt(etAgentId.getText().toString()));
+//                    Executors.newSingleThreadExecutor().execute(new PostCustomer(c));
+//
+//                } else {
+//                    Customer c = new Customer(
+//                            Integer.parseInt(etCustomerId.getText().toString()),
+//                            etCustFirstName.getText().toString(),
+//                            etCustLastName.getText().toString(),
+//                            etCustAddress.getText().toString(),
+//                            etCustCity.getText().toString(),
+//                            etCustProv.getText().toString(),
+//                            etCustPostal.getText().toString(),
+//                            etCustCountry.getText().toString(),
+//                            etCustHomePhone.getText().toString(),
+//                            etCustBusPhone.getText().toString(),
+//                            etCustEmail.getText().toString(),
+//                            Integer.parseInt(etAgentId.getText().toString()));
+//                    Executors.newSingleThreadExecutor().execute(new PutCustomer(c));
+//
+//                }
 
                 etCustFirstName.setEnabled(false);
                 etCustLastName.setEnabled(false);
@@ -143,6 +177,9 @@ public class CustomersFragment extends Fragment {
                 etCustBusPhone.setEnabled(false);
                 etCustEmail.setEnabled(false);
                 etAgentId.setEnabled(false);
+
+                btnAdd_customers.setEnabled(true);
+
 
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
 //                Executors.newSingleThreadExecutor().execute(new GetCustomers());
@@ -171,6 +208,11 @@ public class CustomersFragment extends Fragment {
                 etCustBusPhone.setEnabled(true);
                 etCustEmail.setEnabled(true);
                 etAgentId.setEnabled(true);
+
+                saveState = "create";
+
+                btnAdd_customers.setEnabled(false);
+
             }
         });
 
@@ -204,6 +246,10 @@ public class CustomersFragment extends Fragment {
                 etCustEmail.setEnabled(false);
                 etAgentId.setEnabled(false);
 
+                saveState = "";
+                btnAdd_customers.setEnabled(true);
+
+
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
 //                Executors.newSingleThreadExecutor().execute(new GetCustomers());
                 listCustomers();
@@ -231,6 +277,7 @@ public class CustomersFragment extends Fragment {
                 etCustEmail.setText(c.getCustEmail());
                 etAgentId.setText(c.getAgentId()+"");
 
+                saveState = "update";
 
                 etCustFirstName.setEnabled(true);
                 etCustLastName.setEnabled(true);
