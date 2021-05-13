@@ -102,7 +102,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="32dp"
-                        android:ems="10"
+                        android:ems="8"
+                        android:enabled="false"
                         android:inputType="date|datetime|text"
                         android:clickable="false"
                         android:cursorVisible="false"
@@ -139,8 +140,11 @@
                         android:id="@+id/etPkgEndDate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="28dp"
-                        android:ems="10"
+
+                        android:layout_marginEnd="32dp"
+                        android:ems="8"
+                        android:enabled="false"
+
                         android:inputType="date|text"
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -209,9 +213,33 @@
                         android:ems="10"
                         android:inputType="time"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.846"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etPkgStartDate" />
+
+                        app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+                    <ImageButton
+                        android:id="@+id/btnStartDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FFFFFF"
+                        android:src="@drawable/ic_baseline_date_range_24"
+                        android:tint="@color/brand_plum"
+                        app:layout_constraintBottom_toBottomOf="@+id/etPkgStartDate"
+                        app:layout_constraintEnd_toStartOf="@+id/etPkgStartDate"
+                        app:layout_constraintTop_toTopOf="@+id/etPkgStartDate"
+                        android:onClick="showDatePickerDialog"/>
+
+                    <ImageButton
+                        android:id="@+id/btnEndDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FFFFFF"
+                        android:src="@drawable/ic_baseline_date_range_24"
+                        android:tint="@color/brand_plum"
+                        app:layout_constraintBottom_toBottomOf="@+id/etPkgEndDate"
+                        app:layout_constraintEnd_toStartOf="@+id/etPkgEndDate"
+                        app:layout_constraintTop_toTopOf="@+id/etPkgEndDate"
+                        app:layout_constraintVertical_bias="1.0"
+                        android:onClick="showDatePickerDialog"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>

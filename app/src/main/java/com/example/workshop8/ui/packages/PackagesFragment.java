@@ -1,7 +1,9 @@
 package com.example.workshop8.ui.packages;
 
 import android.app.DatePickerDialog;
-import android.icu.util.Calendar;
+
+import android.app.Dialog;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -37,9 +41,9 @@ import org.json.JSONObject;
 
 import java.math.BigInteger;
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -56,6 +60,7 @@ public class PackagesFragment extends Fragment {
     FloatingActionButton btnAdd_packages, btnSave_packages, btnDelete_packages;
     EditText etPackageId, etPkgName, etPkgStartDate, etPkgEndDate,
             etPkgDesc, etPkgBasePrice, etPkgAgencyCommission;
+    ImageButton btnStartDate, btnEndDate;
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy, hh:mm:ss aaa");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -108,6 +113,9 @@ public class PackagesFragment extends Fragment {
         etPkgBasePrice = root.findViewById(R.id.etPkgBasePrice);
         etPkgAgencyCommission = root.findViewById(R.id.etPkgAgencyCommission);
 
+        btnStartDate = root.findViewById(R.id.btnStartDate);
+        btnEndDate = root.findViewById(R.id.btnEndDate);
+
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         Executors.newSingleThreadExecutor().execute(new PackagesFragment.GetPackages());
@@ -132,8 +140,8 @@ public class PackagesFragment extends Fragment {
             public void onClick(View v) {
                 etPackageId.setText("");
                 etPkgName.setText("");
-                etPkgStartDate.setText("Jan 1, 2000, 12:00:00 AM");
-                etPkgEndDate.setText("Jan 2, 2000, 12:00:00 AM");
+                etPkgStartDate.setText("2020-01-30");
+                etPkgEndDate.setText("2020-02-30");
                 etPkgDesc.setText("");
                 etPkgBasePrice.setText("");
                 etPkgAgencyCommission.setText("");
@@ -189,6 +197,24 @@ public class PackagesFragment extends Fragment {
                 // TODO: Refresh the listview. ↓ This sometimes work... Just call twice!!!
 //                Executors.newSingleThreadExecutor().execute(new GetCustomers());
 
+            }
+        });
+
+        btnStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setETView(etPkgStartDate);
+                newFragment.show(getActivity().getSupportFragmentManager(), "startDate");
+            }
+        });
+
+        btnEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setETView(etPkgEndDate);
+                newFragment.show(getActivity().getSupportFragmentManager(), "endDate");
             }
         });
 
@@ -378,6 +404,42 @@ public class PackagesFragment extends Fragment {
 
             requestQueue.add(stringRequest);
 
+        }
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        Calendar c;
+        EditText et;
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+             int year, month, day;
+            if (et.getText().toString().isEmpty()) {
+                c = Calendar.getInstance();
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
+            } else {
+                c = Calendar.getInstance();
+                c.setTime(Date.valueOf(et.getText().toString()));
+
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
+            }
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void setETView(EditText et) {
+            this.et = et;
+        }
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            et.setText(year+"-"+month+"-"+day);
         }
     }
 
