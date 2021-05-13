@@ -7,22 +7,21 @@ import androidx.lifecycle.ViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.Date;
-import java.sql.Timestamp;
 
-public class Package extends ViewModel implements Serializable {
+public class Package extends ViewModel {
 
     private int PackageId;
     private String PkgName;
     private Date PkgStartDate;
     private Date PkgEndDate;
     private String PkgDesc;
-    private double PkgBasePrice;
-    private double PkgAgencyCommission;
+    private BigInteger PkgBasePrice;
+    private BigInteger PkgAgencyCommission;
 
     public Package(int packageId, String pkgName, Date pkgStartDate, Date pkgEndDate,
-                   String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
+                   String pkgDesc, BigInteger pkgBasePrice, BigInteger pkgAgencyCommission) {
         PackageId = packageId;
         PkgName = pkgName;
         PkgStartDate = pkgStartDate;
@@ -72,19 +71,19 @@ public class Package extends ViewModel implements Serializable {
         PkgDesc = pkgDesc;
     }
 
-    public double getPkgBasePrice() {
+    public BigInteger getPkgBasePrice() {
         return PkgBasePrice;
     }
 
-    public void setPkgBasePrice(double pkgBasePrice) {
+    public void setPkgBasePrice(BigInteger pkgBasePrice) {
         PkgBasePrice = pkgBasePrice;
     }
 
-    public double getPkgAgencyCommission() {
+    public BigInteger getPkgAgencyCommission() {
         return PkgAgencyCommission;
     }
 
-    public void setPkgAgencyCommission(double pkgAgencyCommission) {
+    public void setPkgAgencyCommission(BigInteger pkgAgencyCommission) {
         PkgAgencyCommission = pkgAgencyCommission;
     }
 

@@ -25,13 +25,16 @@ import com.android.volley.toolbox.Volley;
 import com.example.workshop8.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -108,24 +111,24 @@ public class PackagesFragment extends Fragment {
         btnSave_packages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (saveState == "create"){
+                if (etPackageId.getText().toString().isEmpty()){
                     Package p = new Package(0,
                                 etPkgName.getText().toString(),
-                                Date.valueOf(etPkgStartDate.getText().toString()),
-                                Date.valueOf(etPkgEndDate.getText().toString()),
+                                Date.valueOf((etPkgStartDate.getText().toString())),
+                                Date.valueOf((etPkgEndDate.getText().toString())),
                                 etPkgDesc.getText().toString(),
-                                Double.parseDouble(etPkgBasePrice.getText().toString()),
-                                Double.parseDouble(etPkgAgencyCommission.getText().toString()));
+                                BigInteger.valueOf(Integer.parseInt(etPkgBasePrice.getText().toString())),
+                                BigInteger.valueOf(Integer.parseInt(etPkgAgencyCommission.getText().toString())));
                     Executors.newSingleThreadExecutor().execute(new PostPackage(p));
-                } else if (saveState == "update") {
+                } else {
                     Package p = new Package(
                             Integer.parseInt(etPackageId.getText().toString()),
                             etPkgName.getText().toString(),
-                            Date.valueOf(etPkgStartDate.getText().toString()),
-                            Date.valueOf(etPkgEndDate.getText().toString()),
+                            Date.valueOf((etPkgStartDate.getText().toString())),
+                            Date.valueOf((etPkgEndDate.getText().toString())),
                             etPkgDesc.getText().toString(),
-                            Double.parseDouble(etPkgBasePrice.getText().toString()),
-                            Double.parseDouble(etPkgAgencyCommission.getText().toString()));
+                            BigInteger.valueOf(Integer.parseInt(etPkgBasePrice.getText().toString())),
+                            BigInteger.valueOf(Integer.parseInt(etPkgAgencyCommission.getText().toString())));
                     Executors.newSingleThreadExecutor().execute(new PutPackage(p));
                 }
 
@@ -198,7 +201,7 @@ public class PackagesFragment extends Fragment {
         JSONObject pkgJson;
 
         public PutPackage(Package pkg) {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
             String jsonString = gson.toJson(pkg);
             try {
                 pkgJson = new JSONObject(jsonString);
@@ -260,7 +263,7 @@ public class PackagesFragment extends Fragment {
         JSONObject pkgJson;
 
         public PostPackage(Package pkg) {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
             String jsonString = gson.toJson(pkg);
             try {
                 pkgJson = new JSONObject(jsonString);
