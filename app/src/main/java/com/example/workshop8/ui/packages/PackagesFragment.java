@@ -269,57 +269,57 @@ public class PackagesFragment extends Fragment {
             }
         });
 
-        etPkgStartDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(v.getContext(), date,
-                        myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        etPkgEndDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(v.getContext(), date,
-                        myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+//        etPkgStartDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//                new DatePickerDialog(v.getContext(), date,
+//                        myCalendar.get(Calendar.YEAR),
+//                        myCalendar.get(Calendar.MONTH),
+//                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//            }
+//        });
+//
+//        etPkgEndDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//                new DatePickerDialog(v.getContext(), date,
+//                        myCalendar.get(Calendar.YEAR),
+//                        myCalendar.get(Calendar.MONTH),
+//                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//            }
+//        });
 
         btnStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DatePickerFragment newFragment = new DatePickerFragment();
-//                newFragment.setETView(etPkgStartDate);
-//                newFragment.show(getActivity().getSupportFragmentManager(), "startDate");
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setETView(etPkgStartDate);
+                newFragment.show(getActivity().getSupportFragmentManager(), "startDate");
 
                 // If using code above, after selecting a date, the showing month value will decrease 1, will cause error.
-
-                new DatePickerDialog(v.getContext(), date,
-                        myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//
+//                new DatePickerDialog(v.getContext(), date,
+//                        myCalendar.get(Calendar.YEAR),
+//                        myCalendar.get(Calendar.MONTH),
+//                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
         btnEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DatePickerFragment newFragment = new DatePickerFragment();
-//                newFragment.setETView(etPkgEndDate);
-//                newFragment.show(getActivity().getSupportFragmentManager(), "endDate");
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setETView(etPkgEndDate);
+                newFragment.show(getActivity().getSupportFragmentManager(), "endDate");
 
                 // If using code above, after selecting a date, the showing month value will decrease 1, will cause error.
 
-                new DatePickerDialog(v.getContext(), date,
-                        myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//                new DatePickerDialog(v.getContext(), date,
+//                        myCalendar.get(Calendar.YEAR),
+//                        myCalendar.get(Calendar.MONTH),
+//                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -576,7 +576,7 @@ public class PackagesFragment extends Fragment {
             this.et = et;
         }
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            et.setText(year+"-"+month+"-"+day);
+            et.setText(year+"-"+(month+1)+"-"+day);
         }
     }
 
